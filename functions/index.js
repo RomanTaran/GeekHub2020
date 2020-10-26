@@ -1,5 +1,5 @@
 document.querySelectorAll('input[name], #formula').forEach(function (input) {
-	input.addEventListener('keyup', function () {
+	input.addEventListener('blur', function () {
 		var a1 = document.querySelector('[name="a1"]');
 		var b1 = document.querySelector('[name="b1"]');
 		var a2 = document.querySelector('[name="a2"]');
@@ -10,7 +10,12 @@ document.querySelectorAll('input[name], #formula').forEach(function (input) {
 
 		try {
 			var calculator = new Function('a1, b1, a2, b2', 'return ' + formula.value + ';');
-
+			var compare = new Function('a1, b1, a2, b2', 'return ' + condition.value + ';');
+			if(compare(Number(a1.value), Number(b1.value), Number(a2.value), Number(b2.value))){
+				result.style.backgroundColor ='#b6d7a8';
+			} else {
+				result.style.backgroundColor ='#fff';
+			}
 			result.value = calculator(Number(a1.value), Number(b1.value), Number(a2.value), Number(b2.value));
 		}
 		catch (error) {
