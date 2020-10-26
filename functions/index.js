@@ -1,4 +1,4 @@
-document.querySelectorAll('input[name], #formula').forEach(function (input) {
+document.querySelectorAll('input[name], #formula, #condition').forEach(function (input) {
 	input.addEventListener('blur', function () {
 		var a1 = document.querySelector('[name="a1"]');
 		var b1 = document.querySelector('[name="b1"]');
