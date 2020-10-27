@@ -1,5 +1,5 @@
 document.querySelectorAll('input[name], #formula, #condition').forEach(function (input) {
-	input.addEventListener('blur', function () {
+	input.addEventListener('keyup', function () {
 		var a1 = document.querySelector('[name="a1"]');
 		var b1 = document.querySelector('[name="b1"]');
 		var a2 = document.querySelector('[name="a2"]');
