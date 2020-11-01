@@ -32,5 +32,10 @@ document.querySelectorAll('[data-show]').forEach(function (button) {
 		document.querySelector('#preview').innerHTML = descriptionString.replace(rule1, '<strong>$1<strong>').replace(rule2, '<i>$1<i>').
 		replace(rule3, '<img src="S1"/>').replace(rule4,'<a href="$1">$1</a>');
 		document.querySelector('#' + e.currentTarget.getAttribute('data-show')).classList.remove('d-none');
+		for(var i = 0; i < document.querySelector('.btn-group').children.length; i++){
+			console.log(document.querySelector('.btn-group'));
+			document.querySelector('.btn-group').children[i].classList.remove('active');
+		}
+		e.target.classList.add('active');
 	});
 });
