@@ -24,7 +24,13 @@ document.querySelectorAll('[data-show]').forEach(function (button) {
 	button.addEventListener('click', function (e) {
 		document.querySelector('#description').classList.add('d-none');
 		document.querySelector('#preview').classList.add('d-none');
-
+		var descriptionString = document.querySelector('#description').value;
+		var rule1 = /^\+\+(.+)\+\+$/;
+		var rule2 = /^\-\-(.+)\-\-$/;
+		var rule3 = /^\((https\:\/\/\w+\-\w+\.\w+\/\w+\.(?:jpg|png))\)$/;
+		var rule4 = /^(https\:\/\/\w+\-\w+\.\w+\/\w+\/\w+)$/;
+		document.querySelector('#preview').innerHTML = descriptionString.replace(rule1, '<strong>$1<strong>').replace(rule2, '<i>$1<i>').
+		replace(rule3, '<img src="S1"/>').replace(rule4,'<a href="$1">$1</a>');
 		document.querySelector('#' + e.currentTarget.getAttribute('data-show')).classList.remove('d-none');
 	});
 });
