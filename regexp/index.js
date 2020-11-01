@@ -1,6 +1,6 @@
 document.querySelector('#user-form').addEventListener('submit', function (e) {
 	e.preventDefault();
-	var rule1 = /^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]+\s[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]+\s[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]+$/;
+	var rule1 = /^[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+$/;
 	var rule2 = /^[\w\-][\w\-\.]+[\w\-]+@[\w\-][\w\-\.]+\.[\w\-\.]+[\w\-]$/;
 	var rule3 = /(?=^.{8,}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/
 	if (rule1.test(e.target.elements["full_name"].value.trim())){
