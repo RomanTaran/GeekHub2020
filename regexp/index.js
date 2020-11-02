@@ -1,7 +1,7 @@
 document.querySelector('#user-form').addEventListener('submit', function (e) {
 	e.preventDefault();
 	var rule1 = /^[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+$/;
-	var rule2 = /^[\w\-][\w\-\.]+[\w\-]+@[\w\-][\w\-\.]+\.[\w\-\.]+[\w\-]$/;
+	var rule2 = /^[a-zA-Z\d\-][a-zA-Z\d\-\.]+[a-zA-Z\d\-]+@[a-zA-Z\d\-][a-zA-Z\d\-\.]+\.[a-zA-Z\d\-\.]+[a-zA-Z\d\-]$/;
 	var rule3 = /(?=^.{8,}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/
 	if (rule1.test(e.target.elements["full_name"].value.trim())){
 		e.target.elements["full_name"].style.backgroundColor = '#C2E0C6';
