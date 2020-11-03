@@ -27,8 +27,8 @@ document.querySelectorAll('[data-show]').forEach(function (button) {
 		var descriptionString = document.querySelector('#description').value;
 		var rule1 = /\+\+([a-zA-Zа-яА-ЯёЁ]+)\+\+/;
 		var rule2 = /\-\-([a-zA-Zа-яА-ЯёЁ]+)\-\-/;
-		var rule3 = /^\((https\:\/\/\w+\-\w+\.\w+\/\w+\.(?:jpg|png))\)$/;
-		var rule4 = /^(https\:\/\/\w+\-\w+\.\w+\/\w+\/\w+)$/;
+		var rule3 = /\((https\:\/\/[a-zA-Z]+\-[a-zA-Z]+\.[a-zA-Z]+\/[a-zA-Z]+\.(?:jpg|png))\)/;
+		var rule4 = /(https\:\/\/[a-zA-Z]+\-[a-zA-Z]+\.[a-zA-Z]+\/[a-zA-Z]+\/[a-zA-Z]+)/;
 		document.querySelector('#preview').innerHTML = descriptionString.replace(rule1, '<strong>$1<strong>').replace(rule2, '<i>$1<i>').
 		replace(rule3, '<img src="$1"/>').replace(rule4,'<a href="$1">$1</a>');
 		document.querySelector('#' + e.currentTarget.getAttribute('data-show')).classList.remove('d-none');
