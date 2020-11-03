@@ -25,8 +25,8 @@ document.querySelectorAll('[data-show]').forEach(function (button) {
 		document.querySelector('#description').classList.add('d-none');
 		document.querySelector('#preview').classList.add('d-none');
 		var descriptionString = document.querySelector('#description').value;
-		var rule1 = /^\+\+(.+)\+\+$/;
-		var rule2 = /^\-\-(.+)\-\-$/;
+		var rule1 = /\+\+([a-zA-Zа-яА-ЯёЁ]+)\+\+/;
+		var rule2 = /\-\-([a-zA-Zа-яА-ЯёЁ]+)\-\-/;
 		var rule3 = /^\((https\:\/\/\w+\-\w+\.\w+\/\w+\.(?:jpg|png))\)$/;
 		var rule4 = /^(https\:\/\/\w+\-\w+\.\w+\/\w+\/\w+)$/;
 		document.querySelector('#preview').innerHTML = descriptionString.replace(rule1, '<strong>$1<strong>').replace(rule2, '<i>$1<i>').
