@@ -28,8 +28,8 @@ document.querySelectorAll('[data-show]').forEach(function (button) {
 		var descriptionString = document.querySelector('#description').value;
 		var rule1 = /\+\+(\S+?)\+\+/g;
 		var rule2 = /\-\-(\S+?)\-\-/g;
-		var rule3 = /\((https:\/\/.+\.(?:jpg|png))\)/g;
-		var rule4 = /(\shttps:\/\/\w+\.\w+)/g;
+		var rule3 = /\((https:\/\/\S+\.(?:jpg|png))\)/g;
+		var rule4 = /[^(](https:\/\/\S+\.\S+)/g;
 		newStr = descriptionString.replace(rule1, '<strong>$1</strong>').replace(rule2, '<i>$1</i>').
 			replace(rule3, '<img src="$1"/>').replace(rule4,'<a href="$1">$1</a>');
 		var output = document.querySelector('#preview');
