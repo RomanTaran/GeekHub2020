@@ -24,13 +24,16 @@ document.querySelectorAll('[data-show]').forEach(function (button) {
 	button.addEventListener('click', function (e) {
 		document.querySelector('#description').classList.add('d-none');
 		document.querySelector('#preview').classList.add('d-none');
+		var newStr;
 		var descriptionString = document.querySelector('#description').value;
-		var rule1 = /\+\+(\S+)\+\+/;
-		var rule2 = /\-\-(\S+)\-\-/;
-		var rule3 = /\((https\:\/\/\S+\-\S+\.\S+\/\S+\.(?:jpg|png))\)/;
-		var rule4 = /(https\:\/\/\S+\-\S+\.\S+\/\S+\/\S+)/;
-		document.querySelector('#preview').innerHTML = descriptionString.replace(rule1, '<strong>$1<strong>').replace(rule2, '<i>$1<i>').
-		replace(rule3, '<img src="$1"/>').replace(rule4,'<a href="$1">$1</a>');
+		var rule1 = /\+\+(\S+?)\+\+/g;
+		var rule2 = /\-\-(\S+?)\-\-/g;
+		var rule3 = /\((https:\/\/.+\.(?:jpg|png))\)/g;
+		var rule4 = /(\shttps:\/\/\w+\.\w+)/g;
+		newStr = descriptionString.replace(rule1, '<strong>$1</strong>').replace(rule2, '<i>$1</i>').
+			replace(rule3, '<img src="$1"/>').replace(rule4,'<a href="$1">$1</a>');
+		var output = document.querySelector('#preview');
+		output.innerHTML = newStr;
 		document.querySelector('#' + e.currentTarget.getAttribute('data-show')).classList.remove('d-none');
 		for(var i = 0; i < document.querySelector('.btn-group').children.length; i++){
 			console.log(document.querySelector('.btn-group'));
