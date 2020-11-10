@@ -45,15 +45,15 @@ jQuery('thead th').on('contextmenu', function (e) {
 	e.preventDefault();
 
 	currentColumn = e.currentTarget;
-
-	var menu = jQuery('#column-menu');
-
-	menu.addClass('d-block');
-
-	menu.css({
-		left: e.clientX,
-		top: e.clientY
-	});
+	if(currentColumn.innerHTML !== '&nbsp;') {
+		var menu = jQuery('#column-menu');
+		menu.removeClass('d-block');
+		menu.addClass('d-block');
+		menu.css({
+			left: e.clientX,
+			top: e.clientY
+		});
+	}
 });
 
 jQuery('#column-menu [data-action]').on('click', function (e) {
