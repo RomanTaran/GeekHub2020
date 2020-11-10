@@ -77,3 +77,43 @@ jQuery('#column-menu [data-action]').on('click', function (e) {
 
 	jQuery('#column-menu').removeClass('d-block');
 });
+var currentRow;
+// Добавление и улаление строк
+jQuery('tbody th').on('contextmenu', function (e) {
+	e.preventDefault();
+
+	currentRow = e.currentTarget;
+
+	var menu = jQuery('#row-menu');
+	if(currentRow.innerHTML !== '&nbsp;') {
+		menu.addClass('d-block');
+
+		menu.css({
+			left: e.clientX,
+			top: e.clientY
+		});
+	}
+});
+
+jQuery('#row-menu [data-action]').on('click', function (e) {
+	e.preventDefault();
+
+	var action = e.currentTarget.getAttribute('data-action');
+	switch (action) {
+		case 'add-above':
+			currentRow.parentElement.parentElement.insertBefore(currentRow.parentElement.cloneNode(true),currentRow.parentElement);
+			break;
+
+		case 'add-under':
+			currentRow.parentElement.parentElement.insertBefore(currentRow.parentElement.cloneNode(true),currentRow.parentElement.nextElementSibling);
+			break;
+
+		case 'remove':
+			currentRow.remove();
+			$('input').each(function () {
+				if(this.name[1]==currentRow.innerHTML) this.parentElement.remove();
+			});
+			break;
+	}
+	jQuery('#row-menu').removeClass('d-block');
+});
