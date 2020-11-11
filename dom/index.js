@@ -16,7 +16,7 @@ jQuery('input').on('paste', function (e) {
 	if (input.name === 'a1' || input.name === 'a2') numberColumns = inputString[0].length-2;
 	else numberColumns = inputString[0].length-1;
 	for (let i = 0; i < numberRows; i++) {
-		$('tbody').append('<tr><td>'+Number(i+3)+'</td><td><input type=\"text\" name=\"a'+Number(i+3)+'\"' +
+		$('tbody').append('<tr><th>'+Number(i+3)+'</th><td><input type=\"text\" name=\"a'+Number(i+3)+'\"' +
 		' value=\"0\"/></td><td><input type=\"text\" name=\"b'+Number(i+3)+'\" value=\"0\"/></td></tr>');
 	}
 	for (let i = 0; i < numberColumns; i++) {
