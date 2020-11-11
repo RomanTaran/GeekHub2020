@@ -4,7 +4,7 @@ jQuery('input').on('paste', function (e) {
 	var text = e.originalEvent.clipboardData.getData('text/plain');
 	var input = e.currentTarget;
 	var headersLetters = ['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-	var arr = text.split('\n');
+	var arr = text.trim().split('\n');
 	var inputString = [];
 	for (let i = 0; i < arr.length; i++) {
 		inputString[i]=arr[i].split(';');
