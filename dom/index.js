@@ -17,15 +17,18 @@ jQuery('input').on('paste', function (e) {
 	else numberColumns = inputString[0].length-1;
 	for (let i = 0; i < numberRows; i++) {
 		$('tbody').append('<tr><th>'+Number(i+3)+'</th><td><input type=\"text\" name=\"a'+Number(i+3)+'\"' +
-		' value=\"0\"/></td><td><input type=\"text\" name=\"b'+Number(i+3)+'\" value=\"0\"/></td></tr>');
+		' value=\"\"/></td><td><input type=\"text\" name=\"b'+Number(i+3)+'\" value=\"\"/></td></tr>');
 	}
 	for (let i = 0; i < numberColumns; i++) {
 		$('thead>tr').append('<th>'+headersLetters[i]+'</th>');
 		$('tbody>tr').append(function(j) {
-			return '<td><input  type=\"text\" name=\"'+headersLetters[i].toLowerCase()+Number(j+1)+'\" value=\"0\"/></td>';
+			return '<td><input  type=\"text\" name=\"'+headersLetters[i].toLowerCase()+Number(j+1)+'\" value=\"\"/></td>';
 		});
 	}
 	var inputs = $('input');
+	for (let i = 0; i < inputs.length; i++) {
+		inputs[i].value = "";
+	}	
 	var indexStart;
 	for (let i = 0; i < $('input').length; i++) {
 		if (inputs[i].name == input.name) indexStart = i;
