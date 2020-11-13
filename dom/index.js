@@ -33,10 +33,12 @@ jQuery('input').on('paste', function (e) {
 	for (let i = 0; i < $('input').length; i++) {
 		if (inputs[i].name == input.name) indexStart = i;
 	}
-	var k;
 	for (let i = 0; i < inputString.length; i++) {
 		for (let j = 0; j < inputString[i].length; j++) {
 			inputs[indexStart++].value=inputString[i][j];
+		}
+		if (input.name[0] == 'b'){
+			indexStart++;
 		}
 	}
 
