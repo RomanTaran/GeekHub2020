@@ -66,17 +66,28 @@ jQuery('#column-menu [data-action]').on('click', function (e) {
 
 	var action = e.currentTarget.getAttribute('data-action');
 
-	switch (action) {
-		case 'add-left':
-
+	case 'add-left':
+			currentColumn.parentElement.insertBefore(currentColumn.cloneNode(),currentColumn);
+			$('input').each(function () {
+				if(this.name[0]==currentColumn.innerHTML.toLowerCase())
+					this.parentElement.parentElement.insertBefore(this.parentElement.cloneNode(true),this.parentElement);
+			});
 			break;
 
-		case 'add-right':
-
+	case 'add-right':
+			currentColumn.parentElement.insertBefore(currentColumn.cloneNode(),currentColumn.nextElementSibling);
+			$('input').each(function () {
+				if(this.name[0]==currentColumn.innerHTML.toLowerCase())
+					this.parentElement.parentElement.insertBefore(this.parentElement.cloneNode(true),this.parentElement.nextElementSibling);
+			});
 			break;
 
-		case 'remove':
-
+	case 'remove':
+			currentColumn.remove();
+			$('input').each(function () {
+				if(this.name[0]==currentColumn.innerHTML.toLowerCase())
+					this.parentElement.remove();
+			});
 			break;
 	}
 
