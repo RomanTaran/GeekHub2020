@@ -28,7 +28,7 @@ jQuery('input').on('paste', function (e) {
 	var inputs = $('input');
 	for (let i = 0; i < inputs.length; i++) {
 		inputs[i].value = "";
-	}	
+	}
 	var indexStart;
 	for (let i = 0; i < $('input').length; i++) {
 		if (inputs[i].name == input.name) indexStart = i;
@@ -41,19 +41,19 @@ jQuery('input').on('paste', function (e) {
 			indexStart++;
 		}
 	}
-
 });
 
 var currentColumn;
-
+// Добавление и удаление столбцов
 jQuery('thead th').on('contextmenu', function (e) {
 	e.preventDefault();
 
 	currentColumn = e.currentTarget;
+
+	var menu = jQuery('#column-menu');
 	if(currentColumn.innerHTML !== '&nbsp;') {
-		var menu = jQuery('#column-menu');
-		menu.removeClass('d-block');
 		menu.addClass('d-block');
+
 		menu.css({
 			left: e.clientX,
 			top: e.clientY
@@ -65,8 +65,8 @@ jQuery('#column-menu [data-action]').on('click', function (e) {
 	e.preventDefault();
 
 	var action = e.currentTarget.getAttribute('data-action');
-
-	case 'add-left':
+	switch (action) {
+		case 'add-left':
 			currentColumn.parentElement.insertBefore(currentColumn.cloneNode(),currentColumn);
 			$('input').each(function () {
 				if(this.name[0]==currentColumn.innerHTML.toLowerCase())
@@ -74,7 +74,7 @@ jQuery('#column-menu [data-action]').on('click', function (e) {
 			});
 			break;
 
-	case 'add-right':
+		case 'add-right':
 			currentColumn.parentElement.insertBefore(currentColumn.cloneNode(),currentColumn.nextElementSibling);
 			$('input').each(function () {
 				if(this.name[0]==currentColumn.innerHTML.toLowerCase())
@@ -82,7 +82,7 @@ jQuery('#column-menu [data-action]').on('click', function (e) {
 			});
 			break;
 
-	case 'remove':
+		case 'remove':
 			currentColumn.remove();
 			$('input').each(function () {
 				if(this.name[0]==currentColumn.innerHTML.toLowerCase())
@@ -90,9 +90,9 @@ jQuery('#column-menu [data-action]').on('click', function (e) {
 			});
 			break;
 	}
-
 	jQuery('#column-menu').removeClass('d-block');
 });
+
 var currentRow;
 // Добавление и улаление строк
 jQuery('tbody th').on('contextmenu', function (e) {
