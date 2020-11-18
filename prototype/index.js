@@ -3,7 +3,7 @@ function Csv() {
 //Метод parse
 Csv.prototype.parse = function (string, separator) {
     //Разбиваем исходную строку на массив подстрок по разделителю "перевод строки"
-    let arr = string.trim().split('\n');
+    let arr = string.split('\n');
     //Объявляем функцию поиска разделителя
     function getSeparator(array, sym) {
         let separator;
@@ -65,7 +65,7 @@ CsvArray.prototype = Object.create(Array.prototype);
 function CsvArray() {
 }
 CsvArray.prototype.parse = function (string, separator) {
-    let arr = string.trim().split('\n');
+    let arr = string.split('\n');
 
     //Объявляем функцию поиска разделителя
     function getSeparator(array, sym) {
