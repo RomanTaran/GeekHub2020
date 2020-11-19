@@ -52,7 +52,7 @@ Csv.prototype.parse = function (string, separator) {
 Csv.prototype.generate = function (array, separator) {
   let str = array[0].join(separator);
   for (let i = 1; i < array.length; i += 1) {
-    str += "\n" + array[i].join(separator);
+    str += '\n' + array[i].join(separator);
   }
   return str;
 };
@@ -110,7 +110,7 @@ CsvArray.prototype.parse = function (string, separator) {
 CsvArray.prototype.generate = function (separator) {
   let str = this[0].join(separator);
   for (let i = 1; i < this.length; i += 1) {
-    str += "\n" + this[i].join(separator);
+    str += '\n' + this[i].join(separator);
   }
   return str;
 };
@@ -120,7 +120,7 @@ CsvArray.prototype.getCell = function (str) {
 };
 
 const table = new CsvArray();
-table.parse("42,qwe,92\n12,asd,73");
+table.parse('42,qwe,92\n12,asd,73');
 console.log(table.length, table[0][0], table[1][2]);
 table[0][0] = 'zxc';
 console.log(table.generate());
