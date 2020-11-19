@@ -1,14 +1,14 @@
 function Csv() {
 }
 //  Метод parse
-Csv.prototype.parse = function (string, separator) {
+Csv.prototype.parse = function parse(string, separator) {
   //Разбиваем исходную строку на массив подстрок по разделителю "перевод строки"
   const arr = string.split('\n');
   //  Объявляем функцию поиска разделителя
   function getSeparator(array, sym) {
-    sym.forEach(function (element) {
+    sym.forEach((element) => {
       const arrSymbol = [];
-      array.forEach(function (elem) {
+      array.forEach((elem) => {
         let count = 0;
         let position = elem.indexOf(element);
         while (position !== -1) {
@@ -17,7 +17,8 @@ Csv.prototype.parse = function (string, separator) {
         }
         arrSymbol.push(count);
       });
-      if (arrSymbol.every(function (el) {return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
+      if (arrSymbol.every((el) => {
+        return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
         separator = element;
       }
     });
@@ -49,7 +50,7 @@ Csv.prototype.parse = function (string, separator) {
   return table;
 };
 //  Метод generate
-Csv.prototype.generate = function (array, separator) {
+Csv.prototype.generate = function generate(array, separator) {
   let str = array[0].join(separator);
   for (let i = 1; i < array.length; i += 1) {
     str += '\n' + array[i].join(separator);
@@ -62,14 +63,14 @@ CsvArray.prototype = Object.create(Array.prototype);
 //  Создаем конструктор CsvArray
 function CsvArray() {
 }
-CsvArray.prototype.parse = function (string, separator) {
+CsvArray.prototype.parse = function parse(string, separator) {
   const arr = string.split('\n');
 
   //  Объявляем функцию поиска разделителя
   function getSeparator(array, sym) {
-    sym.forEach(function (element) {
+    sym.forEach((element) => {
       const arrSymbol = [];
-      array.forEach(function (elem) {
+      array.forEach((elem) => {
         let count = 0;
         let position = elem.indexOf(element);
         while (position !== -1) {
@@ -78,7 +79,7 @@ CsvArray.prototype.parse = function (string, separator) {
         }
         arrSymbol.push(count);
       });
-      if (arrSymbol.every(function (el) {return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
+      if (arrSymbol.every((el) => {return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
         separator = element;
       }
     });
@@ -107,14 +108,14 @@ CsvArray.prototype.parse = function (string, separator) {
     this.push(row);
   }
 };
-CsvArray.prototype.generate = function (separator) {
+CsvArray.prototype.generate = function generate(separator) {
   let str = this[0].join(separator);
   for (let i = 1; i < this.length; i += 1) {
     str += '\n' + this[i].join(separator);
   }
   return str;
 };
-CsvArray.prototype.getCell = function (str) {
+CsvArray.prototype.getCell = function getCell(str) {
   const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   return this[str[1] - 1][letters.indexOf(str[0])];
 };
