@@ -17,8 +17,7 @@ Csv.prototype.parse = function (string, separator) {
         }
         arrSymbol.push(count);
       });
-      if (arrSymbol.every(function (el) {
-        return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
+      if (arrSymbol.every(function (el) {return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
         separator = element;
       }
     });
@@ -79,9 +78,7 @@ CsvArray.prototype.parse = function (string, separator) {
         }
         arrSymbol.push(count);
       });
-      if (arrSymbol.every(function (el) {
-        return el === arrSymbol[0];
-        }) && arrSymbol[0] !== 0) {
+      if (arrSymbol.every(function (el) {return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
         separator = element;
       }
     });
