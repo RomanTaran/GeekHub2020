@@ -51,11 +51,7 @@ Csv.prototype.parse = function parse(string, separator) {
 };
 //  Метод generate
 Csv.prototype.generate = function generate(array, separator) {
-  let str = array[0].join(separator);
-  for (let i = 1; i < array.length; i += 1) {
-    str += '\n' + array[i].join(separator);
-  }
-  return str;
+  return array.map(elem => elem.join(separator)).join('\n');
 };
 
 //  Наследуем CsvArray от Array
@@ -109,11 +105,7 @@ CsvArray.prototype.parse = function parse(string, separator) {
   }
 };
 CsvArray.prototype.generate = function generate(separator) {
-  let str = this[0].join(separator);
-  for (let i = 1; i < this.length; i += 1) {
-    str += '\n' + this[i].join(separator);
-  }
-  return str;
+  return this.map(elem => elem.join(separator)).join('\n');
 };
 CsvArray.prototype.getCell = function getCell(str) {
   const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
