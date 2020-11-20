@@ -2,7 +2,7 @@ function Csv() {
 }
 //  Метод parse
 Csv.prototype.parse = function parse(string, separator) {
-  //Разбиваем исходную строку на массив подстрок по разделителю "перевод строки"
+  //  Разбиваем исходную строку на массив подстрок по разделителю "перевод строки"
   const arr = string.split('\n');
   //  Объявляем функцию поиска разделителя
   function getSeparator(array, sym) {
@@ -17,8 +17,7 @@ Csv.prototype.parse = function parse(string, separator) {
         }
         arrSymbol.push(count);
       });
-      if (arrSymbol.every((el) => {
-        return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
+      if (arrSymbol.every((el) => { return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
         separator = element;
       }
     });
@@ -27,7 +26,7 @@ Csv.prototype.parse = function parse(string, separator) {
   //  Определяем, какой у нас будет разделитель
   if (separator === undefined) {
     const symbols = [',', ';', '\t'];
-    separator = getSeparator (arr, symbols);
+    separator = getSeparator(arr, symbols);
   }
   //  Разбиваем каждый элемент массива на подмассивы по найденному разделителю
   const inputString = [];
@@ -75,7 +74,7 @@ CsvArray.prototype.parse = function parse(string, separator) {
         }
         arrSymbol.push(count);
       });
-      if (arrSymbol.every((el) => {return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
+      if (arrSymbol.every((el) => { return el === arrSymbol[0]; }) && arrSymbol[0] !== 0) {
         separator = element;
       }
     });
@@ -85,7 +84,7 @@ CsvArray.prototype.parse = function parse(string, separator) {
   //  Определяем, какой у нас будет разделитель
   if (separator === undefined) {
     const symbols = [',', ';', '\t'];
-    separator = getSeparator (arr, symbols);
+    separator = getSeparator(arr, symbols);
   }
   //  Разбиваем каждый элемент массива на подмассивы по найденному разделителю
   const inputString = [];
