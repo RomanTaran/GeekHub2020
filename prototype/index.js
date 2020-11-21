@@ -2,6 +2,7 @@ function Csv() {
 }
 //  Метод parse
 Csv.prototype.parse = function parse(string, separator) {
+  let mySeparator = separator;
   //  Разбиваем исходную строку на массив подстрок по разделителю "перевод строки"
   const arr = string.split('\n');
   //  Объявляем функцию поиска разделителя
@@ -18,20 +19,20 @@ Csv.prototype.parse = function parse(string, separator) {
         arrSymbol.push(count);
       });
       if (arrSymbol.every(el => el === arrSymbol[0]) && arrSymbol[0] !== 0) {
-        separator = element;
+        mySeparator = element;
       }
     });
-    return separator;
+    return mySeparator;
   }
   //  Определяем, какой у нас будет разделитель
-  if (separator === undefined) {
+  if (mySeparator === undefined) {
     const symbols = [',', ';', '\t'];
-    separator = getSeparator(arr, symbols);
+    mySeparator = getSeparator(arr, symbols);
   }
   //  Разбиваем каждый элемент массива на подмассивы по найденному разделителю
   const inputString = [];
   for (let i = 0; i < arr.length; i += 1) {
-    inputString[i] = arr[i].split(separator);
+    inputString[i] = arr[i].split(mySeparator);
   }
   //  Определяем количество строк и столбцов в будущей таблице
   const numberRows = arr.length;
@@ -60,7 +61,7 @@ function CsvArray() {
 }
 CsvArray.prototype.parse = function parse(string, separator) {
   const arr = string.split('\n');
-
+  let mySeparator = separator;
   //  Объявляем функцию поиска разделителя
   function getSeparator(array, sym) {
     sym.forEach((element) => {
@@ -75,21 +76,21 @@ CsvArray.prototype.parse = function parse(string, separator) {
         arrSymbol.push(count);
       });
       if (arrSymbol.every(el => el === arrSymbol[0]) && arrSymbol[0] !== 0) {
-        separator = element;
+        mySeparator = element;
       }
     });
-    return separator;
+    return mySeparator;
   }
 
   //  Определяем, какой у нас будет разделитель
-  if (separator === undefined) {
+  if (mySeparator === undefined) {
     const symbols = [',', ';', '\t'];
-    separator = getSeparator(arr, symbols);
+    mySeparator = getSeparator(arr, symbols);
   }
   //  Разбиваем каждый элемент массива на подмассивы по найденному разделителю
   const inputString = [];
   for (let i = 0; i < arr.length; i += 1) {
-    inputString[i] = arr[i].split(separator);
+    inputString[i] = arr[i].split(mySeparator);
   }
   //  Определяем количество строк и столбцов в будущей таблице
   const numberRows = arr.length;
