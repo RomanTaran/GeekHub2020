@@ -14,7 +14,7 @@ export default function Table(props) {
 
   function addRows() {
     const row = [];
-    for (let i = 0; i < rows; i++) {
+    for (let i = 0; i < props.rows; i++) {
       row.push(<tr>
         <td>{i + 1}</td>
         {addCells(i, props.columns)}</tr>);
@@ -27,10 +27,12 @@ export default function Table(props) {
     for (let i = 0; i < cols; i++) {
       cells.push(<td><input type='text' name={alpha[i] + (rowNum + 1)} value={insertValue(rowNum, i)}/></td>)
     }
+
     return cells;
   }
 
   function insertValue(rowIndex, colIndex) {
+
     if (props.data === undefined || props.cell === undefined) {return ;}
     if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {return;}
     return props.data[rowIndex - props.cell[1] + 1][colIndex - alpha.indexOf(props.cell[0])];

@@ -38,7 +38,7 @@ function Table(props) {
   function addRows() {
     var row = [];
 
-    for (var i = 0; i < rows; i++) {
+    for (var i = 0; i < props.rows; i++) {
       row.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, i + 1), addCells(i, props.columns)));
     }
 
@@ -52,7 +52,7 @@ function Table(props) {
       cells.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         name: alpha[i] + (rowNum + 1),
-        defaultValue: insertValue(rowNum, i)
+        value: insertValue(rowNum, i)
       })));
     }
 
@@ -60,9 +60,15 @@ function Table(props) {
   }
 
   function insertValue(rowIndex, colIndex) {
-    if (props.data === undefined || props.cell === undefined) {}
+    console.log(rowIndex, colIndex);
 
-    if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {}
+    if (props.data === undefined || props.cell === undefined) {
+      return;
+    }
+
+    if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {
+      return;
+    }
 
     return props.data[rowIndex - props.cell[1] + 1][colIndex - alpha.indexOf(props.cell[0])];
   }
@@ -94,6 +100,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var alpha = 'abcdefghijklmnopqrstuvwxyz';
+var rowsNumber = 0;
+var columnsNumber = 0;
 react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Table__WEBPACK_IMPORTED_MODULE_3__.default, {
   columns: 2,
   rows: 2
@@ -107,8 +115,10 @@ jquery__WEBPACK_IMPORTED_MODULE_2___default()('body').on('paste', 'input', funct
   });
   var column = input.parentNode.cellIndex - 1;
   var row = input.parentNode.parentNode.sectionRowIndex;
-  var rowsNumber = row + data.length;
-  var columnsNumber = column + data[0].length;
+  rowsNumber = Math.max(rowsNumber, row + data.length);
+  columnsNumber = Math.max(columnsNumber, column + data[0].length); //	let rowsNumber = row + data.length;
+  //	let columnsNumber = column + data[0].length;
+
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Table__WEBPACK_IMPORTED_MODULE_3__.default, {
     columns: columnsNumber,
     rows: rowsNumber,
