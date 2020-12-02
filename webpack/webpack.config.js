@@ -30,7 +30,9 @@ module.exports = {
 			},
 		],
 	},
-
+	optimization: {
+		splitChunks: { chunks: "all" }
+	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
 	},

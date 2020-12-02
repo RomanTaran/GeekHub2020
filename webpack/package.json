@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev": "webpack --mode development",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }

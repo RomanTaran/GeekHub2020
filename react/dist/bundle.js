@@ -35,7 +35,7 @@ function Table(props) {
     return headers;
   }
 
-  function addRows(rowNum) {
+  function addRows() {
     var row = [];
 
     for (var i = 0; i < rows; i++) {
@@ -60,16 +60,14 @@ function Table(props) {
   }
 
   function insertValue(rowIndex, colIndex) {
-    if (props.data === undefined || props.cell === undefined) {
-      return;
-    } else if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {
-      return;
-    } else {
-      return props.data[rowIndex - props.cell[1] + 1][colIndex - alpha.indexOf(props.cell[0])];
-    }
+    if (props.data === undefined || props.cell === undefined) {}
+
+    if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {}
+
+    return props.data[rowIndex - props.cell[1] + 1][colIndex - alpha.indexOf(props.cell[0])];
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\xA0"), addHeader(props.columns))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, addRows(props.rows)));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, "\xA0"), addHeader(props.columns))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, addRows()));
 }
 ;
 

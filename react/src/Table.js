@@ -12,7 +12,7 @@ export default function Table(props) {
     return headers;
   }
 
-  function addRows(rowNum) {
+  function addRows() {
     const row = [];
     for (let i = 0; i < rows; i++) {
       row.push(<tr>
@@ -25,19 +25,15 @@ export default function Table(props) {
   function addCells(rowNum, cols) {
     const cells = [];
     for (let i = 0; i < cols; i++) {
-      cells.push(<td><input type='text' name={alpha[i] + (rowNum + 1)} defaultValue={insertValue(rowNum, i)}/></td>)
+      cells.push(<td><input type='text' name={alpha[i] + (rowNum + 1)} value={insertValue(rowNum, i)}/></td>)
     }
     return cells;
   }
 
   function insertValue(rowIndex, colIndex) {
-    if (props.data === undefined || props.cell === undefined) {
-      return;
-    } else if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {
-      return;
-    } else {
-      return props.data[rowIndex - props.cell[1] + 1][colIndex - alpha.indexOf(props.cell[0])];
-    }
+    if (props.data === undefined || props.cell === undefined) {return ;}
+    if (rowIndex < props.cell[1] - 1 || colIndex < alpha.indexOf(props.cell[0])) {return;}
+    return props.data[rowIndex - props.cell[1] + 1][colIndex - alpha.indexOf(props.cell[0])];
   }
 
   return (
@@ -49,7 +45,7 @@ export default function Table(props) {
       </tr>
       </thead>
       <tbody>
-      {addRows(props.rows)}
+      {addRows()}
       </tbody>
     </table>
   );
