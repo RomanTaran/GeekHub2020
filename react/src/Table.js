@@ -15,8 +15,8 @@ export default function Table(props) {
   function addRows() {
     const row = [];
     for (let i = 0; i < props.rows; i++) {
-      row.push(<tr>
-        <td>{i + 1}</td>
+      row.push(<tr key={i}>
+        <th>{i + 1}</th>
         {addCells(i, props.columns)}</tr>);
     }
     return row;
@@ -25,7 +25,7 @@ export default function Table(props) {
   function addCells(rowNum, cols) {
     const cells = [];
     for (let i = 0; i < cols; i++) {
-      cells.push(<td><input type='text' name={alpha[i] + (rowNum + 1)} value={insertValue(rowNum, i)}/></td>)
+      cells.push(<td key={i}><input type='text' name={alpha[i] + (rowNum + 1)} value={insertValue(rowNum, i)}/></td>)
     }
 
     return cells;

@@ -39,7 +39,9 @@ function Table(props) {
     var row = [];
 
     for (var i = 0; i < props.rows; i++) {
-      row.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, i + 1), addCells(i, props.columns)));
+      row.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
+        key: i
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, i + 1), addCells(i, props.columns)));
     }
 
     return row;
@@ -49,7 +51,9 @@ function Table(props) {
     var cells = [];
 
     for (var i = 0; i < cols; i++) {
-      cells.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      cells.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+        key: i
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         name: alpha[i] + (rowNum + 1),
         value: insertValue(rowNum, i)
@@ -60,8 +64,6 @@ function Table(props) {
   }
 
   function insertValue(rowIndex, colIndex) {
-    console.log(rowIndex, colIndex);
-
     if (props.data === undefined || props.cell === undefined) {
       return;
     }
@@ -116,7 +118,8 @@ jquery__WEBPACK_IMPORTED_MODULE_2___default()('body').on('paste', 'input', funct
   var column = input.parentNode.cellIndex - 1;
   var row = input.parentNode.parentNode.sectionRowIndex;
   rowsNumber = Math.max(rowsNumber, row + data.length);
-  columnsNumber = Math.max(columnsNumber, column + data[0].length); //	let rowsNumber = row + data.length;
+  columnsNumber = Math.max(columnsNumber, column + data[0].length);
+  console.log(row + data.length, column + data[0].length); //	let rowsNumber = row + data.length;
   //	let columnsNumber = column + data[0].length;
 
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Table__WEBPACK_IMPORTED_MODULE_3__.default, {
