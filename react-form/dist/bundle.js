@@ -895,35 +895,24 @@ var UserForm = /*#__PURE__*/function (_PureComponent) {
       var ruleName = /^[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s+[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s+[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+$/;
       var ruleEmail = /^(?:(?:[a-zA-Z\d\-]+)|(?:[a-zA-Z\d\-]+[a-zA-Z\d\-.]+[a-zA-Z\d\-]+))@[a-zA-Z\d\-][a-zA-Z\d\-.]*\.[a-zA-Z\d\-.]*[a-zA-Z\d\-]$/;
       var rulePassword = /(?=^.{8,}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
-      ruleName.test(this.state.name.trim()) ? this.setState({
-        nameValid: true
-      }) : this.setState({
-        nameValid: false
-      });
-      ruleEmail.test(this.state.email.trim()) ? this.setState({
-        emailValid: true
-      }) : this.setState({
-        emailValid: false
-      });
-      rulePassword.test(this.state.password) ? this.setState({
-        passwordValid: true
-      }) : this.setState({
-        passwordValid: false
-      });
-      var validPhones = [];
-      this.state.phonesNum.map(function (elem) {
-        var validPhone;
-
-        if (elem.type === 'home') {
-          validPhone = elem.number[0] != 0 && elem.number.length === 6;
-        } else {
-          validPhone = elem.number[0] == 0 && elem.number.length === 10 || elem.number[0] == 3 && elem.number.length === 12;
-        }
-
-        validPhones.push(validPhone);
+      this.setState({
+        nameValid: ruleName.test(this.state.name.trim())
       });
       this.setState({
-        phoneValid: validPhones
+        emailValid: ruleEmail.test(this.state.email.trim())
+      });
+      this.setState({
+        passwordValid: rulePassword.test(this.state.password)
+      });
+      var validPhones = [];
+      this.setState({
+        phoneValid: this.state.phonesNum.map(function (elem) {
+          if (elem.type === 'home') {
+            return elem.number[0] != 0 && elem.number.length === 6;
+          } else {
+            return elem.number[0] == 0 && elem.number.length === 10 || elem.number[0] == 3 && elem.number.length === 12;
+          }
+        })
       });
     }
   }, {

@@ -25,21 +25,20 @@ export default class UserForm extends PureComponent {
     const ruleName = /^[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s+[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+\s+[а-щА-ЩьЮюЯяЇїІіЄєҐґ]+$/;
     const ruleEmail = /^(?:(?:[a-zA-Z\d\-]+)|(?:[a-zA-Z\d\-]+[a-zA-Z\d\-.]+[a-zA-Z\d\-]+))@[a-zA-Z\d\-][a-zA-Z\d\-.]*\.[a-zA-Z\d\-.]*[a-zA-Z\d\-]$/;
     const rulePassword = /(?=^.{8,}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
-    ruleName.test(this.state.name.trim()) ? this.setState({nameValid: true}) : this.setState({nameValid: false});
-    ruleEmail.test(this.state.email.trim()) ? this.setState({emailValid: true}) : this.setState({emailValid: false});
-    rulePassword.test(this.state.password) ? this.setState({passwordValid: true}) : this.setState({passwordValid: false});
+    this.setState({nameValid: ruleName.test(this.state.name.trim())});
+    this.setState({emailValid: ruleEmail.test(this.state.email.trim())});
+    this.setState({passwordValid: rulePassword.test(this.state.password)});
     const validPhones = [];
-    this.state.phonesNum.map((elem) => {
-        let validPhone;
-        if (elem.type === 'home') {
-          validPhone = elem.number[0] != 0 && elem.number.length === 6;
-        } else {
-          validPhone = (elem.number[0] == 0 && elem.number.length === 10) || (elem.number[0] == 3 && elem.number.length === 12);
+    this.setState({
+      phoneValid: this.state.phonesNum.map((elem) => {
+          if (elem.type === 'home') {
+            return elem.number[0] != 0 && elem.number.length === 6;
+          } else {
+            return (elem.number[0] == 0 && elem.number.length === 10) || (elem.number[0] == 3 && elem.number.length === 12);
+          }
         }
-        validPhones.push(validPhone);
-      }
-    )
-    this.setState({phoneValid: validPhones})
+      )
+    })
   }
 
   changePhoneNumber = (e, index) => {
