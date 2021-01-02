@@ -51,7 +51,7 @@ export default class Slider extends React.PureComponent {
           value={value}
           onChange={this.inputChange}
         />
-        <Bar>
+        <Bar x={x}>
           <Handler
             x={x}
             onMouseDown={this.onDragStart}
@@ -72,7 +72,7 @@ const Root = styled.div`
 const Bar = styled.div`
   position: relative;
   height: 2px;
-  background-color: black;
+  background: linear-gradient(to right, green ${p=>p.x}px, red ${p=>p.x}px);
   margin-top: 10px;
 `;
 
