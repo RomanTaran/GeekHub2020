@@ -2,13 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default class Slider extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      x: this.props.min,
-      value: this.props.min,
-    };
-  }
+  state = {
+    x: this.props.min,
+    value: this.props.min,
+  };
 
   startX = this.props.min;
   firstX = 0;
