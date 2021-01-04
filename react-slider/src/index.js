@@ -16,9 +16,9 @@ ReactDom.render(
 ReactDom.render(
 	<DoubleSlider
 		min={100}
-		max={2000}
+		max={1800}
 		startValue={900}
-		endValue={1800}
+		endValue={1600}
 		onChange={(startValue, endValue) => console.log(startValue, endValue)}
 	/>,
 	document.querySelector('#double-slider')
