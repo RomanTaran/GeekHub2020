@@ -23,7 +23,7 @@ export default class TodoItem extends Component {
     if (text.length === 0) {
       this.props.deleteTodo(id)
     } else {
-      this.props.editTodo(id, text)
+      this.props.editTodo({text,id})
     }
     this.setState({ editing: false })
   }
@@ -31,7 +31,7 @@ export default class TodoItem extends Component {
   render() {
     const { todo, completeTodo, deleteTodo } = this.props
 
-    let element
+    let element;
     if (this.state.editing) {
       element = (
         <TodoTextInput text={todo.text}

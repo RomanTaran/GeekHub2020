@@ -51,14 +51,14 @@ export default class DoubleSlider extends React.PureComponent {
     document.body.removeEventListener('mouseup', this.onDragEnd2);
   }
   inputChange1 = (e) => {
-    let val = Math.max(Math.min(e.target.value, this.state.x2-5), this.props.min);
+    let val = Math.max(Math.min(e.target.value, this.state.x2 - 5), this.props.min);
     this.setState({
       x1: val,
       value1: e.target.value
     })
   }
   inputChange2 = (e) => {
-    let val = Math.max(Math.min(e.target.value, this.props.max), this.state.x1+5);
+    let val = Math.max(Math.min(e.target.value, this.props.max), this.state.x1 + 5);
     this.setState({
       x2: val,
       value2: e.target.value
@@ -111,7 +111,7 @@ const Root = styled.div`
 const Bar = styled.div`
   position: relative;
   height: 2px;
-  background: linear-gradient(to right, green ${p=>p.x1}px, red ${p=>p.x1}px, red ${p=>p.x2}px, green ${p=>p.x2}px);
+  background: linear-gradient(to right, green ${p => p.x1}px, red ${p => p.x1}px, red ${p => p.x2}px, green ${p => p.x2}px);
   margin-top: 10px;
 `;
 
