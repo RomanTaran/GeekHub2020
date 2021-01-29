@@ -16,47 +16,48 @@ export default class TodoItem extends Component {
   }
 
   handleDoubleClick = () => {
-    this.setState({ editing: true })
+    this.setState({editing: true})
   }
 
-  handleSave = (id, text) => {
+  handleSave = (text) => {
+    const {todo} = this.props
+    const {id} = todo;
+
     if (text.length === 0) {
       this.props.deleteTodo(id)
     } else {
-      this.props.editTodo({text,id})
+      this.props.editTodo({text, id})
     }
-    this.setState({ editing: false })
+    this.setState({editing: false})
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const {todo: {completed, id, text}, completeTodo, deleteTodo} = this.props
 
     let element;
     if (this.state.editing) {
-      element = (
-        <TodoTextInput text={todo.text}
-                       editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
-      )
+      element = <TodoTextInput text={text}
+                               editing={this.state.editing}
+                               onSave={this.handleSave}/>
     } else {
       element = (
         <div className="view">
           <input className="toggle"
                  type="checkbox"
-                 checked={todo.completed}
-                 onChange={() => completeTodo(todo.id)} />
+                 checked={completed}
+                 onChange={() => completeTodo(id)}/>
           <label onDoubleClick={this.handleDoubleClick}>
-            {todo.text}
+            {text}
           </label>
           <button className="destroy"
-                  onClick={() => deleteTodo(todo.id)} />
+                  onClick={() => deleteTodo(id)}/>
         </div>
       )
     }
 
     return (
       <li className={classnames({
-        completed: todo.completed,
+        completed: completed,
         editing: this.state.editing
       })}>
         {element}

@@ -2367,7 +2367,10 @@ var TodoItem = /*#__PURE__*/function (_Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleSave", function (id, text) {
+    _defineProperty(_assertThisInitialized(_this), "handleSave", function (text) {
+      var todo = _this.props.todo;
+      var id = todo.id;
+
       if (text.length === 0) {
         _this.props.deleteTodo(id);
       } else {
@@ -2388,21 +2391,20 @@ var TodoItem = /*#__PURE__*/function (_Component) {
   _createClass(TodoItem, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
-          todo = _this$props.todo,
+          _this$props$todo = _this$props.todo,
+          completed = _this$props$todo.completed,
+          id = _this$props$todo.id,
+          text = _this$props$todo.text,
           completeTodo = _this$props.completeTodo,
           deleteTodo = _this$props.deleteTodo;
       var element;
 
       if (this.state.editing) {
         element = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TodoTextInput__WEBPACK_IMPORTED_MODULE_3__.default, {
-          text: todo.text,
+          text: text,
           editing: this.state.editing,
-          onSave: function onSave(text) {
-            return _this2.handleSave(todo.id, text);
-          }
+          onSave: this.handleSave
         });
       } else {
         element = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2410,23 +2412,23 @@ var TodoItem = /*#__PURE__*/function (_Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           className: "toggle",
           type: "checkbox",
-          checked: todo.completed,
+          checked: completed,
           onChange: function onChange() {
-            return completeTodo(todo.id);
+            return completeTodo(id);
           }
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
           onDoubleClick: this.handleDoubleClick
-        }, todo.text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "destroy",
           onClick: function onClick() {
-            return deleteTodo(todo.id);
+            return deleteTodo(id);
           }
         }));
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()({
-          completed: todo.completed,
+          completed: completed,
           editing: this.state.editing
         })
       }, element);
