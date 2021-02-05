@@ -4,10 +4,13 @@ import MainSection from '../components/MainSection'
 import { getCompletedTodoCount } from '../selectors'
 import { bindActionCreators } from "redux";
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state,ownProps) => {
+  return ({
   todosCount: state.todos.length,
+  filter:ownProps.filter,
   completedCount: getCompletedTodoCount(state)
-}), mapDispatchToProps = dispatch => ({
+})}
+  const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     deleteTodo,
     editTodo,

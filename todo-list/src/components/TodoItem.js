@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
+import Link from "./Link";
 
 export default class TodoItem extends Component {
   static propTypes = {
@@ -33,7 +34,6 @@ export default class TodoItem extends Component {
 
   render() {
     const {todo: {completed, id, text}, completeTodo, deleteTodo} = this.props
-
     let element;
     if (this.state.editing) {
       element = <TodoTextInput text={text}
@@ -41,7 +41,7 @@ export default class TodoItem extends Component {
                                onSave={this.handleSave}/>
     } else {
       element = (
-        <div className="view">
+         <div className="view">
           <input className="toggle"
                  type="checkbox"
                  checked={completed}

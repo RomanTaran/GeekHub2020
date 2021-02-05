@@ -1,10 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 import {configureStore,getDefaultMiddleware} from "@reduxjs/toolkit";
-import { Provider } from 'react-redux'
-import App from './components/App'
 import reducer from './reducers'
 import './index.css'
+import Root from "./components/Root";
 
 const store = configureStore({
   reducer:reducer,
@@ -15,8 +14,6 @@ const store = configureStore({
 });
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root store={store}/>,
   document.getElementById('root')
 )
