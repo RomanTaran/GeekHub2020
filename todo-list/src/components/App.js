@@ -8,7 +8,9 @@ const App = () => {
   return (
     <div>
       <Header/>
-      <MainSection filter={filter}/>
+      <MainSection
+        filter={filter}
+      />
     </div>
   )
 }

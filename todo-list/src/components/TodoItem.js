@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
-import Link from "./Link";
+import { NavLink } from "react-router-dom";
 
 export default class TodoItem extends Component {
   static propTypes = {
@@ -11,7 +11,6 @@ export default class TodoItem extends Component {
     deleteTodo: PropTypes.func.isRequired,
     completeTodo: PropTypes.func.isRequired
   }
-
   state = {
     editing: false
   }
@@ -23,7 +22,6 @@ export default class TodoItem extends Component {
   handleSave = (text) => {
     const {todo} = this.props
     const {id} = todo;
-
     if (text.length === 0) {
       this.props.deleteTodo(id)
     } else {
@@ -41,14 +39,38 @@ export default class TodoItem extends Component {
                                onSave={this.handleSave}/>
     } else {
       element = (
-         <div className="view">
+        <div className="view">
           <input className="toggle"
                  type="checkbox"
                  checked={completed}
                  onChange={() => completeTodo(id)}/>
+
           <label onDoubleClick={this.handleDoubleClick}>
             {text}
           </label>
+          <NavLink
+            to={`${id}`}
+
+            activeStyle={{
+              textDecoration: 'none',
+              color: 'red',
+
+            }}
+          >
+            GoTo{id}
+          </NavLink>
+          <NavLink
+            to="/edit"
+
+            activeStyle={{
+              textDecoration: 'none',
+              color: 'red',
+              margin:'5px'
+
+            }}
+          >
+            Edit
+          </NavLink>
           <button className="destroy"
                   onClick={() => deleteTodo(id)}/>
         </div>

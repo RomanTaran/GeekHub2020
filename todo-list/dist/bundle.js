@@ -2071,28 +2071,6 @@ function isAsyncThunkAction() {
 
 /***/ }),
 
-/***/ "./src/actions/index.js":
-/*!******************************!*\
-  !*** ./src/actions/index.js ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setVisibilityFilter": () => /* binding */ setVisibilityFilter
-/* harmony export */ });
-/* harmony import */ var _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/ActionTypes */ "./src/constants/ActionTypes.js");
-
-var setVisibilityFilter = function setVisibilityFilter(filter) {
-  return {
-    type: _constants_ActionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_VISIBILITY_FILTER,
-    filter: filter
-  };
-};
-
-/***/ }),
-
 /***/ "./src/components/App.js":
 /*!*******************************!*\
   !*** ./src/components/App.js ***!
@@ -2107,15 +2085,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _containers_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/Header */ "./src/containers/Header.js");
 /* harmony import */ var _containers_MainSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/MainSection */ "./src/containers/MainSection.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 
 
 
 
-var App = function App(_ref) {
-  var params = _ref.match.params;
-  console.log(params);
+
+var App = function App() {
+  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_3__.useParams)([]),
+      filter = _useParams.filter;
+
+  console.log(filter);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_Header__WEBPACK_IMPORTED_MODULE_1__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_MainSection__WEBPACK_IMPORTED_MODULE_2__.default, {
-    filter: params.filter || 'all'
+    filter: filter
   }));
 };
 
@@ -2138,16 +2120,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _containers_FilterLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/FilterLink */ "./src/containers/FilterLink.js");
-/* harmony import */ var _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants/TodoFilters */ "./src/constants/TodoFilters.js");
-var _FILTER_TITLES;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-
-
-var FILTER_TITLES = (_FILTER_TITLES = {}, _defineProperty(_FILTER_TITLES, _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_3__.SHOW_ALL, 'All'), _defineProperty(_FILTER_TITLES, _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_3__.SHOW_ACTIVE, 'Active'), _defineProperty(_FILTER_TITLES, _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_3__.SHOW_COMPLETED, 'Completed'), _FILTER_TITLES);
+var VisibilityFilters = {
+  SHOW_ALL: 'all',
+  SHOW_COMPLETED: 'completed',
+  SHOW_ACTIVE: 'active'
+};
 
 var Footer = function Footer(props) {
   var activeCount = props.activeCount,
@@ -2160,13 +2140,13 @@ var Footer = function Footer(props) {
     className: "todo-count"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, activeCount || 'No'), " ", itemWord, " left"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
     className: "filters"
-  }, Object.keys(FILTER_TITLES).map(function (filter) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-      key: filter
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_FilterLink__WEBPACK_IMPORTED_MODULE_2__.default, {
-      filter: filter
-    }, FILTER_TITLES[filter]));
-  })), !!completedCount && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_FilterLink__WEBPACK_IMPORTED_MODULE_2__.default, {
+    filter: VisibilityFilters.SHOW_ALL
+  }, "All")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_FilterLink__WEBPACK_IMPORTED_MODULE_2__.default, {
+    filter: VisibilityFilters.SHOW_ACTIVE
+  }, "Active")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_FilterLink__WEBPACK_IMPORTED_MODULE_2__.default, {
+    filter: VisibilityFilters.SHOW_COMPLETED
+  }, "Completed"))), !!completedCount && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: "clear-completed",
     onClick: onClearCompleted
   }, "Clear completed"));
@@ -2222,55 +2202,6 @@ Header.propTypes = {
 
 /***/ }),
 
-/***/ "./src/components/Link.js":
-/*!********************************!*\
-  !*** ./src/components/Link.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
-
-
-
-
-var LinkOne = function LinkOne(_ref) {
-  var active = _ref.active,
-      children = _ref.children,
-      setFilter = _ref.setFilter;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-    to: children === 'All' ? '/' : children,
-    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()({
-      selected: active
-    }),
-    style: {
-      cursor: 'pointer'
-    },
-    onClick: function onClick() {
-      return setFilter();
-    }
-  }, children);
-};
-
-LinkOne.propTypes = {
-  active: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool.isRequired),
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().node.isRequired),
-  setFilter: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func.isRequired)
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LinkOne);
-
-/***/ }),
-
 /***/ "./src/components/MainSection.js":
 /*!***************************************!*\
   !*** ./src/components/MainSection.js ***!
@@ -2307,7 +2238,7 @@ var MainSection = function MainSection(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     onClick: actions.completeAllTodos
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_containers_VisibleTodoList__WEBPACK_IMPORTED_MODULE_3__.default, {
-    filter: filter
+    filter: filter || 'all'
   }), !!todosCount && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Footer__WEBPACK_IMPORTED_MODULE_2__.default, {
     completedCount: completedCount,
     activeCount: todosCount - completedCount,
@@ -2355,6 +2286,12 @@ var Root = function Root(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
     path: "/:filter?",
     component: _App__WEBPACK_IMPORTED_MODULE_3__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+    path: "/todo/:id",
+    component: _App__WEBPACK_IMPORTED_MODULE_3__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+    path: "/todo/:id/edit",
+    component: _App__WEBPACK_IMPORTED_MODULE_3__.default
   }))));
 };
 
@@ -2382,6 +2319,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _TodoTextInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TodoTextInput */ "./src/components/TodoTextInput.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2405,6 +2343,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2488,7 +2427,14 @@ var TodoItem = /*#__PURE__*/function (_Component) {
           }
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
           onDoubleClick: this.handleDoubleClick
-        }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
+          exact: true,
+          to: "/todo/:id",
+          activeStyle: {
+            textDecoration: 'none',
+            color: 'red'
+          }
+        }, id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "destroy",
           onClick: function onClick() {
             return deleteTodo(id);
@@ -2541,11 +2487,11 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 var TodoList = function TodoList(_ref) {
-  var filteredTodos = _ref.filteredTodos,
+  var todos = _ref.todos,
       actions = _ref.actions;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
     className: "todo-list"
-  }, filteredTodos.map(function (todo) {
+  }, todos.map(function (todo) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TodoItem__WEBPACK_IMPORTED_MODULE_2__.default, _extends({
       key: todo.id,
       todo: todo
@@ -2554,7 +2500,7 @@ var TodoList = function TodoList(_ref) {
 };
 
 TodoList.propTypes = {
-  filteredTodos: prop_types__WEBPACK_IMPORTED_MODULE_1___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
+  todos: prop_types__WEBPACK_IMPORTED_MODULE_1___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
     id: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired),
     completed: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool.isRequired),
     text: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired)
@@ -2720,9 +2666,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SHOW_COMPLETED": () => /* binding */ SHOW_COMPLETED,
 /* harmony export */   "SHOW_ACTIVE": () => /* binding */ SHOW_ACTIVE
 /* harmony export */ });
-var SHOW_ALL = 'show_all';
-var SHOW_COMPLETED = 'show_completed';
-var SHOW_ACTIVE = 'show_active';
+var SHOW_ALL = 'all';
+var SHOW_COMPLETED = 'completed';
+var SHOW_ACTIVE = 'active';
 
 /***/ }),
 
@@ -2737,28 +2683,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
-/* harmony import */ var _components_Link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Link */ "./src/components/Link.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
 
-
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {
-    active: ownProps.filter === state.visibilityFilter
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    setFilter: function setFilter() {
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.setVisibilityFilter)(ownProps.filter));
+var FilterLink = function FilterLink(_ref) {
+  var filter = _ref.filter,
+      children = _ref.children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.NavLink, {
+    exact: true,
+    to: filter === 'SHOW_ALL' ? '/' : "/".concat(filter),
+    activeStyle: {
+      textDecoration: 'none',
+      color: 'red'
     }
-  };
+  }, children);
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_components_Link__WEBPACK_IMPORTED_MODULE_2__.default));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FilterLink);
 
 /***/ }),
 
@@ -2845,23 +2788,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _features_todos_todosSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../features/todos/todosSlice */ "./src/features/todos/todosSlice.js");
 /* harmony import */ var _components_TodoList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TodoList */ "./src/components/TodoList.js");
-/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../selectors */ "./src/selectors/index.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
 
 
 
+var VisibilityFilters = {
+  SHOW_ALL: 'all',
+  SHOW_COMPLETED: 'completed',
+  SHOW_ACTIVE: 'active'
+};
 
+var getVisibleTodos = function getVisibleTodos(todos, filter) {
+  switch (filter) {
+    case VisibilityFilters.SHOW_ALL:
+      return todos;
+
+    case VisibilityFilters.SHOW_ACTIVE:
+      return todos.filter(function (t) {
+        return !t.completed;
+      });
+
+    case VisibilityFilters.SHOW_COMPLETED:
+      return todos.filter(function (t) {
+        return t.completed;
+      });
+
+    default:
+      throw new Error('Unknown filter: ' + filter);
+  }
+};
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    filteredTodos: (0,_selectors__WEBPACK_IMPORTED_MODULE_3__.getVisibleTodos)(state)
+    todos: getVisibleTodos(state.todos, ownProps.filter)
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    actions: (0,redux__WEBPACK_IMPORTED_MODULE_4__.bindActionCreators)({
+    actions: (0,redux__WEBPACK_IMPORTED_MODULE_3__.bindActionCreators)({
       deleteTodo: _features_todos_todosSlice__WEBPACK_IMPORTED_MODULE_1__.deleteTodo,
       editTodo: _features_todos_todosSlice__WEBPACK_IMPORTED_MODULE_1__.editTodo,
       completeTodo: _features_todos_todosSlice__WEBPACK_IMPORTED_MODULE_1__.completeTodo,
@@ -3088,41 +3054,15 @@ var visibilityFilter = function visibilityFilter() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getVisibleTodos": () => /* binding */ getVisibleTodos,
 /* harmony export */   "getCompletedTodoCount": () => /* binding */ getCompletedTodoCount
 /* harmony export */ });
 /* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/es/index.js");
-/* harmony import */ var _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/TodoFilters */ "./src/constants/TodoFilters.js");
 
-
-
-var getVisibilityFilter = function getVisibilityFilter(state) {
-  return state.visibilityFilter;
-};
 
 var getTodos = function getTodos(state) {
   return state.todos;
 };
 
-var getVisibleTodos = (0,reselect__WEBPACK_IMPORTED_MODULE_0__.createSelector)([getVisibilityFilter, getTodos], function (visibilityFilter, todos) {
-  switch (visibilityFilter) {
-    case _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_1__.SHOW_ALL:
-      return todos;
-
-    case _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_1__.SHOW_COMPLETED:
-      return todos.filter(function (t) {
-        return t.completed;
-      });
-
-    case _constants_TodoFilters__WEBPACK_IMPORTED_MODULE_1__.SHOW_ACTIVE:
-      return todos.filter(function (t) {
-        return !t.completed;
-      });
-
-    default:
-      throw new Error('Unknown filter: ' + visibilityFilter);
-  }
-});
 var getCompletedTodoCount = (0,reselect__WEBPACK_IMPORTED_MODULE_0__.createSelector)([getTodos], function (todos) {
   return todos.reduce(function (count, todo) {
     return todo.completed ? count + 1 : count;

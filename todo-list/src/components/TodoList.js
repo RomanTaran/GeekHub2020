@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
 
-const TodoList = ({ todos, actions}) => (
+const TodoList = ({ todos, actions,filter}) => {
+  return (
   <ul className="todo-list">
     {todos.map(todo =>
-      <TodoItem key={todo.id} todo={todo} {...actions}/>
+      <TodoItem key={todo.id} filter={filter} todo={todo} {...actions}/>
     )}
   </ul>
-)
+)}
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
