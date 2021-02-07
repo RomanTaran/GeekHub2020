@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
+import { useParams } from "react-router";
 
 const TodoList = ({ todos, actions,filter}) => {
+  const {id, action} = useParams();
+  const fullTodolist = todos.map(todo =>
+    <TodoItem key={todo.id} todo={todo} {...actions}/>
+  )
+  const oneTodo = todos.filter(todo => todo.id === Number(id)).map(todo =>
+    <TodoItem key={todo.id} todo={todo} editing={action === 'edit' ? 'edit' : 'false'} {...actions}/>)
   return (
-  <ul className="todo-list">
-    {todos.map(todo =>
-      <TodoItem key={todo.id} filter={filter} todo={todo} {...actions}/>
-    )}
-  </ul>
-)}
+    <ul className="todo-list">
+      {id ? oneTodo : fullTodolist}
+    </ul>
+  )
+}
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({

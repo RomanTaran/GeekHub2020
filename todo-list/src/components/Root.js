@@ -7,7 +7,11 @@ import App from './App'
 const Root = ({store}) => (
   <Provider store={store}>
     <Router>
-      <Route path="/:filter?" component={App}/>
+      <Switch>
+        <Route path='/todo/:id/:action(edit)?' component={App}/>
+        <Route path='/:filter(all|active|completed)' component={App}/>
+        <Route exact path='/' component={App}/>
+      </Switch>
     </Router>
   </Provider>
 )

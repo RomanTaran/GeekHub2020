@@ -1,11 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FilterLink from '../containers/FilterLink'
-const VisibilityFilters={
-  SHOW_ALL:'all',
-  SHOW_COMPLETED:'completed',
-  SHOW_ACTIVE:'active'
-}
+
 const Footer = (props) => {
   const { activeCount, completedCount, onClearCompleted } = props
   const itemWord = activeCount === 1 ? 'item' : 'items'
@@ -16,17 +12,17 @@ const Footer = (props) => {
       </span>
       <ul className="filters">
         <li>
-          <FilterLink filter={VisibilityFilters.SHOW_ALL}>
+          <FilterLink filter="all">
             All
           </FilterLink>
         </li>
         <li>
-          <FilterLink filter={VisibilityFilters.SHOW_ACTIVE}>
+          <FilterLink filter="active">
             Active
           </FilterLink>
         </li>
         <li>
-          <FilterLink filter={VisibilityFilters.SHOW_COMPLETED}>
+          <FilterLink filter="completed">
             Completed
           </FilterLink>
         </li>

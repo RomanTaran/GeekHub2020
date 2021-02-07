@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Footer from './Footer'
 import VisibleTodoList from '../containers/VisibleTodoList'
+import { useParams } from "react-router";
 
-const MainSection = ({todosCount, completedCount, actions,filter,id}) => {
- return (
-  <section className="main">
-    {
-      !!todosCount &&
-      <span>
+const MainSection = ({todosCount, completedCount, actions}) => {
+  const {filter} = useParams();
+  return (
+    <section className="main">
+      {
+        !!todosCount &&
+        <span>
           <input
             className="toggle-all"
             type="checkbox"

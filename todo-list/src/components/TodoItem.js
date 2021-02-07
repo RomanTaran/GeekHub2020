@@ -31,9 +31,9 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const {todo: {completed, id, text}, completeTodo, deleteTodo} = this.props
+    const {todo: {completed, id, text}, editing, completeTodo, deleteTodo} = this.props
     let element;
-    if (this.state.editing) {
+    if (this.state.editing || editing === 'edit') {
       element = <TodoTextInput text={text}
                                editing={this.state.editing}
                                onSave={this.handleSave}/>
@@ -49,7 +49,7 @@ export default class TodoItem extends Component {
             {text}
           </label>
           <NavLink
-            to={`${id}`}
+            to={`/todo/${id}`}
 
             activeStyle={{
               textDecoration: 'none',
@@ -60,12 +60,12 @@ export default class TodoItem extends Component {
             GoTo{id}
           </NavLink>
           <NavLink
-            to="/edit"
+            to={`/todo/${id}/edit`}
 
             activeStyle={{
               textDecoration: 'none',
               color: 'red',
-              margin:'5px'
+              marginRight: '5px'
 
             }}
           >

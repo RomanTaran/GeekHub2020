@@ -3,26 +3,18 @@ import { clearCompleted, completeAllTodos, completeTodo, deleteTodo, editTodo } 
 import TodoList from '../components/TodoList'
 import { bindActionCreators } from "redux";
 
-const VisibilityFilters={
-  SHOW_ALL:'all',
-  SHOW_COMPLETED:'completed',
-  SHOW_ACTIVE:'active'
-}
-
 const getVisibleTodos = (state, props) => {
   const {filter} = props;
   const {todos} = state;
   switch (filter) {
-    case VisibilityFilters.SHOW_ALL:
+    case 'all':
       return todos
-    case VisibilityFilters.SHOW_ACTIVE:
+    case 'active':
       return todos.filter(t => !t.completed)
-    case VisibilityFilters.SHOW_COMPLETED:
+    case 'completed':
       return todos.filter(t => t.completed)
     default:
-      return todos.filter((t, index) => {
-        return index === Number(filter)
-      })
+      return todos
   }
 }
 
