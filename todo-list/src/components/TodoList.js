@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
 import { useParams } from "react-router";
 
-const TodoList = ({ todos, actions,filter}) => {
+const TodoList = ({ todos, actions}) => {
   const {id, action} = useParams();
   const fullTodolist = todos.map(todo =>
     <TodoItem key={todo.id} todo={todo} {...actions}/>
