@@ -5,6 +5,9 @@ import TodoTextInput from './TodoTextInput'
 import { NavLink } from "react-router-dom";
 
 export default class TodoItem extends Component {
+  constructor(props) {
+    super(props);
+  }
   static propTypes = {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
@@ -20,7 +23,7 @@ export default class TodoItem extends Component {
   }
 
   handleSave = (text) => {
-    const {todo} = this.props
+    const {todo} = this.props;
     const {id} = todo;
     if (text.length === 0) {
       this.props.deleteTodo(id)
@@ -30,10 +33,22 @@ export default class TodoItem extends Component {
     this.setState({editing: false})
   }
 
+  complete = ()=>{
+    const {todo} = this.props;
+    const {id} = todo;
+    this.props.completeTodo(id);
+  }
+  delete = ()=>{
+    const {todo} = this.props
+    const {id} = todo;
+    this.props.deleteTodo(id);
+  }
+
+
   render() {
-    const {todo: {completed, id, text}, editing, completeTodo, deleteTodo} = this.props
+    const {todo: {completed, id, text}, editing} = this.props
     let element;
-    if (this.state.editing || editing === 'edit') {
+    if (this.state.editing||editing) {
       element = <TodoTextInput text={text}
                                editing={this.state.editing}
                                onSave={this.handleSave}/>
@@ -43,7 +58,7 @@ export default class TodoItem extends Component {
           <input className="toggle"
                  type="checkbox"
                  checked={completed}
-                 onChange={() => completeTodo(id)}/>
+                 onChange={this.complete}/>
 
           <label onDoubleClick={this.handleDoubleClick}>
             {text}
@@ -72,7 +87,7 @@ export default class TodoItem extends Component {
             Edit
           </NavLink>
           <button className="destroy"
-                  onClick={() => deleteTodo(id)}/>
+                  onClick={this.delete}/>
         </div>
       )
     }
