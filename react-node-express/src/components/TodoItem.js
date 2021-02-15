@@ -19,17 +19,17 @@ export default class TodoItem extends Component {
     this.setState({ editing: true });
   };
 
-  handleSave = (id, text) => {
+  handleSave = (todo, text) => {
     if (text.length === 0) {
-      this.props.deleteTodo(id);
+      this.props.deleteTodo(todo._id);
     } else {
-      this.props.editTodo(id, text);
+      this.props.editTodo(todo, text);
     }
     this.setState({ editing: false });
   };
 
   render() {
-    const { todo, toggleTodo, deleteTodo } = this.props;
+    const {todo, toggleTodo, deleteTodo } = this.props;
 
     let element;
     if (this.state.editing) {
@@ -37,7 +37,7 @@ export default class TodoItem extends Component {
         <TodoTextInput
           text={todo.text}
           editing={this.state.editing}
-          onSave={text => this.handleSave(todo._id, text)}
+          onSave={text => this.handleSave(todo, text)}
         />
       );
     } else {
@@ -47,7 +47,7 @@ export default class TodoItem extends Component {
             className="toggle"
             type="checkbox"
             checked={todo.completed}
-            onChange={() => toggleTodo(todo.id)}
+            onChange={() => toggleTodo(todo._id)}
           />
           <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
           <button className="destroy" onClick={() => deleteTodo(todo._id)} />
