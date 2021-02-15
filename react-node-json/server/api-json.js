@@ -1,44 +1,58 @@
 const express = require("express");
 const router = express.Router();
-const fs=require("fs");
+const {resolve} = require("path")
+const fs = require("fs");
+const {promisify} = require("util");
 
-router.get("/", (req,res)=> {
-  fs.readFile('todo.json', (err, data) => {
-    if (err) throw err;
-    res.send(data);
-  })
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+
+router.get("/", (req, res) => {
+  readFile(resolve(__dirname, "todo.json"))
+    .then((data) => res.send(data))
+    .catch((err) => {console.error(err); res.status(500).send(err)})
 })
 
+router.post("/", (req, res) => {
+  readFile(resolve(__dirname, "todo.json"))
+    .then((data) => {
+      const newItem = [...JSON.parse(data), req.body];
+      writeFile(resolve(__dirname, "todo.json"), JSON.stringify(newItem))
+        .then(() => res.send(req.body))
+        .catch((err) => {console.error(err); res.status(500).send(err)});
 
-router.post("/", (req,res)=>{
-  fs.readFile('todo.json', 'utf-8',(err, data) => {
-    if (err) throw err;
-    const newItem = [...JSON.parse(data),req.body];
-    fs.writeFile('todo.json',JSON.stringify(newItem),(err)=> console.error(Error))
-  })
-  res.send(req.body)
-
+    })
+    .catch((err) => {console.error(err); res.status(500).send(err)})
 });
 
 router.post("/todo/:id", (req,res)=> {
-  const {id} = req.body;
-  fs.readFile('todo.json', 'utf-8', (err, data) => {
-    if (err) throw err;
-    const newItem = JSON.parse(data).filter(item => item._id !== id);
-    console.log(newItem);
-    fs.writeFile('todo.json', JSON.stringify(newItem), (err) => console.error(Error))
-  })
-  res.send(req.body);
+  readFile(resolve(__dirname, "todo.json"))
+    .then((data) => {
+      const {id} = req.body;
+      const newItem = JSON.parse(data).filter(item => item._id !== id)
+      writeFile(resolve(__dirname, "todo.json"), JSON.stringify(newItem))
+        .then(() => res.send(req.body))
+        .catch(err => res.status(500).send(err))
+    })
+    .catch(err => res.status(500).send(err))
 })
 
-router.put("/todo/:id", (req,res)=> {
-  const {_id} = req.body;
-  fs.readFile('todo.json', 'utf-8', (err, data) => {
-    if (err) throw err;
-    const newItem = JSON.parse(data).map(item => item._id === _id?req.body:item);
-    fs.writeFile('todo.json', JSON.stringify(newItem), (err) => console.error(Error))
-  })
-  res.send(req.body);
+router.put("/todo/:id", (req, res) => {
+  readFile(resolve(__dirname, "todo.json"))
+    .then((data) => {
+      const {_id} = req.body;
+      const newItem = JSON.parse(data).map((item) => {
+        if (item._id === _id) {
+          return req.body;
+        } else {
+          return item
+        }
+      });
+      writeFile(resolve(__dirname, "todo.json"), JSON.stringify(newItem))
+        .then(() => res.send(req.body))
+        .catch(err => res.status(500).send(err))
+    })
+    .catch(err => res.status(500).send(err))
 })
 
 module.exports = router;
