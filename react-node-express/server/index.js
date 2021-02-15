@@ -5,9 +5,9 @@ const app = express();
 
 mongoose.connect("mongodb://localhost/todos-db",{useUnifiedTopology:true, useNewUrlParser:true});
 
-app.use(express.static('../build'));
+app.use(express.static(resolve(__dirname,'build')));
 app.get('/',(req,res)=>{
-  res.sendFile(__dirname+"/build/index.html");
+  res.sendFile(resolve(__dirname,"index.html"));
 })
 app.use(bodyParser.json());
 app.use("/api",require("./api"))
