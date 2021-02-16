@@ -7,51 +7,50 @@ const {promisify} = require("util");
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
+const handleReadFile = readFile(resolve(__dirname, "todo.json"));
+const handleWriteFile = item => writeFile(resolve(__dirname, "todo.json"), JSON.stringify(item));
+
 router.get("/", (req, res) => {
-  readFile(resolve(__dirname, "todo.json"))
-    .then((data) => res.send(data))
-    .catch((err) => {console.error(err); res.status(500).send(err)})
+  handleReadFile
+    .then(data => res.send(data))
+    .catch(err => res.status(500).send(err))
 })
 
 router.post("/", (req, res) => {
-  readFile(resolve(__dirname, "todo.json"))
-    .then((data) => {
+  handleReadFile
+    .then(data => {
       const newItem = [...JSON.parse(data), req.body];
-      writeFile(resolve(__dirname, "todo.json"), JSON.stringify(newItem))
-        .then(() => res.send(req.body))
-        .catch((err) => {console.error(err); res.status(500).send(err)});
-
+      return handleWriteFile(newItem);
     })
-    .catch((err) => {console.error(err); res.status(500).send(err)})
+    .then(() => res.send(req.body))
+    .catch(err => res.status(500).send(err));
 });
 
-router.post("/todo/:id", (req,res)=> {
-  readFile(resolve(__dirname, "todo.json"))
-    .then((data) => {
+router.post("/todo/:id", (req, res) => {
+  handleReadFile
+    .then(data => {
       const {id} = req.body;
       const newItem = JSON.parse(data).filter(item => item._id !== id)
-      writeFile(resolve(__dirname, "todo.json"), JSON.stringify(newItem))
-        .then(() => res.send(req.body))
-        .catch(err => res.status(500).send(err))
+      return handleWriteFile(newItem);
     })
+    .then(() => res.send(req.body))
     .catch(err => res.status(500).send(err))
 })
 
 router.put("/todo/:id", (req, res) => {
-  readFile(resolve(__dirname, "todo.json"))
-    .then((data) => {
+  handleReadFile
+    .then(data => {
       const {_id} = req.body;
       const newItem = JSON.parse(data).map((item) => {
         if (item._id === _id) {
           return req.body;
         } else {
-          return item
+          return item;
         }
       });
-      writeFile(resolve(__dirname, "todo.json"), JSON.stringify(newItem))
-        .then(() => res.send(req.body))
-        .catch(err => res.status(500).send(err))
+      return handleWriteFile(newItem);
     })
+    .then(() => res.send(req.body))
     .catch(err => res.status(500).send(err))
 })
 

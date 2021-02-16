@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import MainSection from "./MainSection";
-
-function ErrorComponent() {
-  return <div style={{textAlign: "center", fontSize: "16px"}}><h2>Error of reading or writing file on server</h2></div>
-}
+import ErrorComponent from "./ErrorComponent";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setError] = useState(false)
   useEffect(() => {
     fetchTodos();
   }, []);
+
   const fetchTodos = () => {
     fetch('/api', {
       mode: "no-cors", headers: {
@@ -22,7 +20,7 @@ const App = () => {
     })
       .then(response => {
         if (!response.ok) {
-          setHasError(true);
+          setError(true);
         } else {
           return response.json();
         }
@@ -46,7 +44,7 @@ const App = () => {
     })
       .then(response => {
         if (!response.ok) {
-          setHasError(true);
+          setError(true);
         } else {
           return response.json();
         }
@@ -66,7 +64,7 @@ const App = () => {
       body: JSON.stringify({id})
     }).then(response => {
       if (!response.ok) {
-        setHasError(true);
+        setError(true);
       } else {
         return response.json();
       }
@@ -93,7 +91,7 @@ const App = () => {
       body: JSON.stringify(data)
     }).then(response => {
       if (!response.ok) {
-        setHasError(true);
+        setError(true);
       } else {
         return response.json();
       }
@@ -125,20 +123,24 @@ const App = () => {
   const clearCompleted = () => {
     setTodos(todos.filter(todo => todo.completed === false));
   }
+
   return (
     <div>
-      {!hasError && (<><Header addTodo={addTodo}/>
-        <MainSection
-          todos={todos}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
-          toggleTodo={toggleTodo}
-          toggleAllTodo={toggleAllTodo}
-          clearCompleted={clearCompleted}
-        /></>)}
-
-      {hasError && <ErrorComponent/>}
+      {!hasError && (
+        <>
+          <Header addTodo={addTodo}/>
+          <MainSection
+            todos={todos}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+            toggleTodo={toggleTodo}
+            toggleAllTodo={toggleAllTodo}
+            clearCompleted={clearCompleted}
+          />
+        </>
+      )}
+     {hasError && <ErrorComponent/>}
     </div>
   );
 }
-export default App;
+ export default App
