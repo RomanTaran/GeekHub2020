@@ -8,21 +8,20 @@ const App = () => {
     fetchTodos();
   },[]);
   const fetchTodos = ()=>{
-    fetch('/api', {
-      mode: "no-cors", headers: {
+    fetch('/api',{mode:"no-cors",headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer: token',
-      }
-    })
-      .then(response => response.json())
-      .then(data =>setTodos(data))
+      }})
+      .then(res=>res.json())
+      .then((result)=>{
+        setTodos(result);
+      })
   }
   const addTodo = text => {
     const data = {
-      _id: Math.random(),
       text:text,
-      completed:false
+      completed:"false"
     }
     fetch("/api",{
       method:"POST",
@@ -33,33 +32,35 @@ const App = () => {
       },
       body:JSON.stringify(data)
     }).then(res=>res.json()).then(data=>{
-      console.log(data)
       setTodos([...todos, data]);
     });
   };
 
   const deleteTodo = id => {
+    const data = {
+      ...todos,
+      id:id
+    }
     fetch(`/api/todo/${id}`,{
-      method:"POST",
+      method:"DELETE",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer: token',
       },
-      body:JSON.stringify({id})
+      body:JSON.stringify(data)
     }).then(res=>res.json()).then(()=>{
       fetchTodos();
       setTodos(todos);
     });
 };
 
-  const editTodo = (todo, text) => {
+  const editTodo = (id, text) => {
     const data = {
-       text:text,
-      _id:todo._id,
-      completed:todo.completed
+      text:text,
+      id:id
     }
-    fetch(`/api/todo/${todo._id}`,{
+    fetch(`/api/todo/${id}`,{
       method:"PUT",
       headers: {
         'Accept': 'application/json',
