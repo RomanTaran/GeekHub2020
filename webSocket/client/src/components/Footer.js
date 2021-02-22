@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from "./TodoFilters";
+import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "./TodoFilters";
 
 const FILTER_TITLES = {
   [SHOW_ALL]: "All",

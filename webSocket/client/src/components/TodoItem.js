@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import TodoTextInput from "./TodoTextInput";
-import { completeTodo } from "../actions";
 
 export default class TodoItem extends Component {
   static propTypes = {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    toggleTodo: PropTypes.func.isRequired
   };
 
   state = {

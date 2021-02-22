@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import MainSection from "./MainSection";
 import ErrorComponent from "./ErrorComponent";
+import { connect } from "react-redux"
+import { setError } from "../reducers/reducer";
 
-const App = () => {
+const mapDispatchToProps = {setError}
+const mapStateToProps = state => ({hasError: state})
+
+const App = (props) => {
+  const {hasError, setError} = props
   const [todos, setTodos] = useState([]);
-  const [hasError, setError] = useState(false)
   useEffect(() => {
     fetchTodos();
-  }, []);
+  },[]);
 
   const fetchTodos = () => {
     fetch('/api', {
@@ -20,7 +25,7 @@ const App = () => {
     })
       .then(response => {
         if (!response.ok) {
-          setError(true);
+          setError();
         } else {
           return response.json();
         }
@@ -44,7 +49,7 @@ const App = () => {
     })
       .then(response => {
         if (!response.ok) {
-          setError(true);
+          setError();
         } else {
           return response.json();
         }
@@ -64,7 +69,7 @@ const App = () => {
       body: JSON.stringify({id})
     }).then(response => {
       if (!response.ok) {
-        setError(true);
+        setError();
       } else {
         return response.json();
       }
@@ -91,7 +96,7 @@ const App = () => {
       body: JSON.stringify(data)
     }).then(response => {
       if (!response.ok) {
-        setError(true);
+        setError();
       } else {
         return response.json();
       }
@@ -139,8 +144,9 @@ const App = () => {
           />
         </>
       )}
-     {hasError && <ErrorComponent/>}
+      <ErrorComponent isError={hasError}/>
     </div>
   );
 }
- export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+

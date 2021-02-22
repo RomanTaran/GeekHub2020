@@ -73,7 +73,6 @@ MainSection.propTypes = {
   ).isRequired,
   deleteTodo: PropTypes.func.isRequired,
   editTodo: PropTypes.func.isRequired,
-  toggleTodo: PropTypes.func.isRequired,
   toggleAllTodo: PropTypes.func.isRequired,
   clearCompleted: PropTypes.func.isRequired
 };

@@ -18,20 +18,23 @@ const io = require('socket.io')(httpServer, {
 const todoController = require('./controllers/todo.controller');
 
 io.on('connection', (socket) => {
-  console.log("Connected to Socket!!"+ socket.id);
+  console.log("Connected to Socket!!" + socket.id);
   //send Todos to client
   socket.on('getTodos', () => {
     todoController.getTodos(io);
   });
+  socket.on('onChange', (msg) => {
+    socket.emit('onChangeYes', msg)
+  });
 
   // Receiving Todos from client
   socket.on('addTodo', (Todo) => {
-    todoController.addTodo(io,Todo);
+    todoController.addTodo(io, Todo);
   });
 
   // Receiving Updated Todo from client
   socket.on('updateTodo', (Todo) => {
-    todoController.updateTodo(io,Todo);
+    todoController.updateTodo(io, Todo);
   });
 
   // Receiving Todo to Delete
