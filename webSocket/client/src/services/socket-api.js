@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client'
 
-var socket = openSocket('http://localhost:8000',{ transports: ['websocket', 'polling', 'flashsocket'] });
+const socket = openSocket('http://localhost:8000',{ transports: ['websocket', 'polling', 'flashsocket'] });
 
 export default socket;
 

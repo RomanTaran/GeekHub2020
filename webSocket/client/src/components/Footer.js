@@ -1,7 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classnames from "classnames";
-import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "./TodoFilters";
+import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "../constants/TodoFilters";
+import store from "../index";
+import {clearCompleted} from "../actions";
 
 const FILTER_TITLES = {
   [SHOW_ALL]: "All",
@@ -14,8 +15,10 @@ const Footer = ({
   activeCount,
   completedCount,
   setFilter,
-  clearCompleted
 }) => {
+  const handleClearCompleted=()=>{
+    store.dispatch(clearCompleted());
+  }
   const itemWord = activeCount === 1 ? "item" : "items";
   return (
     <footer className="footer">
@@ -37,20 +40,12 @@ const Footer = ({
         ))}
       </ul>
       {!!completedCount && (
-        <button className="clear-completed" onClick={clearCompleted}>
+        <button className="clear-completed" onClick={handleClearCompleted}>
           Clear completed
         </button>
       )}
     </footer>
   );
-};
-
-Footer.propTypes = {
-  visibilityFilter: PropTypes.string.isRequired,
-  completedCount: PropTypes.number.isRequired,
-  activeCount: PropTypes.number.isRequired,
-  clearCompleted: PropTypes.func.isRequired,
-  setFilter: PropTypes.func.isRequired
 };
 
 export default Footer;

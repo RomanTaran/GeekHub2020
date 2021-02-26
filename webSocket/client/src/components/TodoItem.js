@@ -1,42 +1,46 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import classnames from "classnames";
 import TodoTextInput from "./TodoTextInput";
+import { connect } from "react-redux";
+import { completeTodo, deleteTodo, editTodo } from "../actions";
 
-export default class TodoItem extends Component {
-  static propTypes = {
-    todo: PropTypes.object.isRequired,
-    editTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-  };
+class TodoItem extends Component {
 
   state = {
     editing: false
   };
 
   handleDoubleClick = () => {
-    this.setState({ editing: true });
+    this.setState({editing: true});
   };
 
-  handleSave = (id, text) => {
-    if (text.length === 0) {
-      this.props.deleteTodo(id);
+  handleSave = (text) => {
+    const {todo} = this.props
+    if (todo.text.length === 0) {
+      this.props.deleteTodo(todo.id);
     } else {
-      this.props.editTodo(id, text);
+      this.props.editTodo({...todo, text: text});
     }
-    this.setState({ editing: false });
+    this.setState({editing: false});
   };
+  handleDelete = () => {
+    const {todo} = this.props
+    this.props.deleteTodo(todo);
+  }
+  handleCompleteTodo = () => {
+    const {todo} = this.props
+    this.props.completeTodo(todo._id, !todo.completed)
+  }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props;
-
+    const {todo} = this.props;
     let element;
     if (this.state.editing) {
       element = (
         <TodoTextInput
           text={todo.text}
           editing={this.state.editing}
-          onSave={text => this.handleSave(todo._id, text)}
+          onSave={this.handleSave}
         />
       );
     } else {
@@ -46,10 +50,10 @@ export default class TodoItem extends Component {
             className="toggle"
             type="checkbox"
             checked={todo.completed}
-            onChange={() => completeTodo(todo)}
+            onChange={this.handleCompleteTodo}
           />
           <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
-          <button className="destroy" onClick={() => deleteTodo(todo)} />
+          <button className="destroy" onClick={this.handleDelete}/>
         </div>
       );
     }
@@ -67,3 +71,5 @@ export default class TodoItem extends Component {
     );
   }
 }
+
+export default connect(null, {editTodo, deleteTodo, completeTodo})(TodoItem);

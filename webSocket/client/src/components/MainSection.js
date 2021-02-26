@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import TodoList from "./TodoList";
-import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "./TodoFilters";
+import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "../constants/TodoFilters";
+import socket from "../services/socket-api"
+import store from "../index";
+import { getTodos } from "../actions"
+import { connect } from "react-redux";
 
-const MainSection = ({
-                       todos,
-                       deleteTodo,
-                       editTodo,
-                       completeTodo,
-                       toggleAllTodo,
-                       clearCompleted
-                     }) => {
+const MainSection = ({todos}) => {
   const [visibilityFilter, setFilter] = useState(SHOW_ALL);
-
+  useEffect(() => {
+    store.dispatch(getTodos());
+    socket.on("Data changed", () => {
+      store.dispatch(getTodos());
+    });
+  }, []);
   const todosCount = todos.length;
   const completedCount = todos.filter(({completed}) => completed).length;
   let visibleTodos;
@@ -41,14 +42,10 @@ const MainSection = ({
             checked={completedCount === todosCount}
             readOnly
           />
-          <label onClick={toggleAllTodo}/>
         </span>
       )}
       <TodoList
         todos={visibleTodos}
-        deleteTodo={deleteTodo}
-        editTodo={editTodo}
-        completeTodo={completeTodo}
       />
       {!!todosCount && (
         <Footer
@@ -56,25 +53,13 @@ const MainSection = ({
           setFilter={setFilter}
           completedCount={completedCount}
           activeCount={todosCount - completedCount}
-          clearCompleted={clearCompleted}
         />
       )}
     </section>
   );
 };
+const mapStateToProps = state => ({
+  todos: state.todos
+});
 
-MainSection.propTypes = {
-  todos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      completed: PropTypes.bool.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  editTodo: PropTypes.func.isRequired,
-  toggleAllTodo: PropTypes.func.isRequired,
-  clearCompleted: PropTypes.func.isRequired
-};
-
-export default MainSection;
+export default connect(mapStateToProps)(MainSection);
