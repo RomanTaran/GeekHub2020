@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import TodoTextInput from "./TodoTextInput";
 import { connect } from "react-redux";
-import { completeTodo, deleteTodo, editTodo } from "../actions";
+import { completeTodo, deleteTodo, editTodo } from "../reducers/todosSlice";
 
 class TodoItem extends Component {
 
@@ -17,7 +17,7 @@ class TodoItem extends Component {
   handleSave = (text) => {
     const {todo} = this.props
     if (todo.text.length === 0) {
-      this.props.deleteTodo(todo.id);
+      this.props.deleteTodo(todo);
     } else {
       this.props.editTodo({...todo, text: text});
     }
@@ -29,7 +29,7 @@ class TodoItem extends Component {
   }
   handleCompleteTodo = () => {
     const {todo} = this.props
-    this.props.completeTodo(todo._id, !todo.completed)
+    this.props.completeTodo(todo.id)
   }
 
   render() {
@@ -60,7 +60,7 @@ class TodoItem extends Component {
 
     return (
       <li
-        key={classnames({id:todo._id})}
+        key={classnames({id:todo.id})}
         className={classnames({
           completed: todo.completed,
           editing: this.state.editing

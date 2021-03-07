@@ -1,4 +1,3 @@
-const socket = require( 'socket.io' );
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http,{
@@ -20,12 +19,12 @@ app.get('/',(req,res)=>{
 })
 const port = 8000;
 
-http.listen(port,(res)=>{
-  console.log('Server & Socket listening on port : '+port)
+http.listen(port, () => {
+  console.log('Server & Socket listening on port : ' + port)
 })
-io.on('connection', (socket)=>{
-  console.log("Connection on socket: "+socket.id);
-  socket.emit("Data changed");
+io.on('connection', (socket) => {
+  console.log("Connection on socket: " + socket.id);
 })
-module.exports = io
 
+const socketIoObject = io;
+module.exports.ioObject = socketIoObject;

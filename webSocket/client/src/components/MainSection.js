@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import TodoList from "./TodoList";
 import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "../constants/TodoFilters";
-import socket from "../services/socket-api"
-import store from "../index";
-import { getTodos } from "../actions"
-import { connect } from "react-redux";
+import { getTodos } from "../reducers/todosSlice"
+import { connect, useDispatch } from "react-redux";
+import socket from "../services/socket-api";
+import GlobalError from "./GlobalError";
 
 const MainSection = ({todos}) => {
+  const dispatch = useDispatch();
   const [visibilityFilter, setFilter] = useState(SHOW_ALL);
   useEffect(() => {
-    store.dispatch(getTodos());
-    socket.on("Data changed", () => {
-      store.dispatch(getTodos());
-    });
-  }, []);
+    socket.on("Change",()=>{
+      dispatch(getTodos())});
+   }, [dispatch]);
   const todosCount = todos.length;
   const completedCount = todos.filter(({completed}) => completed).length;
   let visibleTodos;
@@ -31,7 +30,6 @@ const MainSection = ({todos}) => {
     default:
       throw new Error("Unknown filter: " + visibilityFilter);
   }
-
   return (
     <section className="main">
       {!!todosCount && (
@@ -44,6 +42,7 @@ const MainSection = ({todos}) => {
           />
         </span>
       )}
+      <GlobalError/>
       <TodoList
         todos={visibleTodos}
       />
@@ -51,15 +50,12 @@ const MainSection = ({todos}) => {
         <Footer
           visibilityFilter={visibilityFilter}
           setFilter={setFilter}
-          completedCount={completedCount}
           activeCount={todosCount - completedCount}
         />
       )}
     </section>
   );
 };
-const mapStateToProps = state => ({
-  todos: state.todos
-});
+const mapStateToProps = state =>state.todoReducer;
 
 export default connect(mapStateToProps)(MainSection);

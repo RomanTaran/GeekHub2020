@@ -3,11 +3,10 @@ import { render } from 'react-dom'
 import App from './components/App'
 import 'todomvc-app-css/index.css'
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import { applyMiddleware, createStore } from "redux";
 import reducer from "./reducers";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = configureStore({reducer, middleware: [...getDefaultMiddleware()]});
 export default store;
 
 render(<Provider store={store}>
