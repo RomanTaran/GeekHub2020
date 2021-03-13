@@ -16,10 +16,6 @@ export type HeaderProps = {
   addTodo: (text: string) => any;
 };
 
-export type MainSectionProps = {
-  todos: Todos;
-};
-
 export type TodoItemProps = {
   todo: Todo;
   completeTodo: (id: number) => void;

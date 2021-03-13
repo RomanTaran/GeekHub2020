@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import Footer from "./Footer";
 import TodoList from "./TodoList";
 import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from "../constants/TodoFilters";
-import {MainSectionProps, Todos} from "../types";
-import {connect} from "react-redux";
+import {useSelector } from "react-redux";
+import {RootState} from "../reducers";
 
-const MainSection:React.FC<MainSectionProps> = ({todos}) => {
+const MainSection:React.FC = () => {
+  const {todos} = useSelector((state:RootState) => state);
   const [visibilityFilter, setFilter] = useState(SHOW_ALL);
-  const todosCount:number = todos.length;
-  const completedCount:number = todos.filter(({completed}) => completed).length;
-  let visibleTodos:Todos;
+  const todosCount = todos.length;
+  const completedCount = todos.filter(({completed}) => completed).length;
+  let visibleTodos;
   switch (visibilityFilter) {
     case SHOW_ALL:
       visibleTodos = todos;
@@ -48,5 +49,5 @@ const MainSection:React.FC<MainSectionProps> = ({todos}) => {
     </section>
   );
 }
-const mapStateToProps = (state: Todos) => state;
-export default connect(mapStateToProps)(MainSection);
+
+export default MainSection;
