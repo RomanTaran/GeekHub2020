@@ -60,7 +60,7 @@ class SignUp extends React.Component {
             onChange={this.handlePasswordChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+        <Button variant="primary" type="submit">
           Зарегистрироваться
         </Button>
       </Form>

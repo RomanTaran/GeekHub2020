@@ -18,9 +18,7 @@ class Login extends React.Component {
     this.setState({password: e.target.value})
   }
   handleSubmit = (e) => {
-    console.log(e);
     e.preventDefault();
-    console.log(this.props);
     this.props.loginUser(this.state);
     this.setState({
       email: '',
@@ -31,7 +29,7 @@ class Login extends React.Component {
   render() {
     if (this.props.id) return <Redirect to="/"/>;
     return (
-      <Form className="login">
+      <Form className="login" onSubmit={this.handleSubmit}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -50,7 +48,7 @@ class Login extends React.Component {
             onChange={this.handlePasswordChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+        <Button variant="primary" type="submit">
           Войти
         </Button>
       </Form>

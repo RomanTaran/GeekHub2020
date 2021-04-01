@@ -1,9 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { getTotalInMonth } from "../selectors/index";
+import { useTotalInMonth } from "../hooks";
+
 
 const GroupMonth = () => {
-  const months = useSelector(state => getTotalInMonth(state))
+  const months = useTotalInMonth();
   return (
     <table className="table table-bordered">
       <thead>

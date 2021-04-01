@@ -1,9 +1,8 @@
 import React from "react";
-import { getTypesInMonth } from "../selectors/index";
-import { useSelector } from "react-redux";
+import { useTypesInMonth } from "../hooks";
 
 const GroupTypes = () => {
-  const types = useSelector(state => getTypesInMonth(state))
+  const types = useTypesInMonth();
   return (
     <table className="table table-bordered">
       <thead>
