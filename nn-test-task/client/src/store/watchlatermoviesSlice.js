@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
-import { url } from "../api";
-import { toast } from "react-toastify";
+import {url} from "../api";
+import {toast} from "react-toastify";
 
 export const getMovie = createAsyncThunk("GET_MOVIE", async (_, {rejectWithValue}) => {
   try {
@@ -30,9 +30,9 @@ export const deleteMovie = createAsyncThunk("DELETE_MOVIE", async (_id, {rejectW
   }
 });
 
-export const watchlatermoviesSlice = createSlice({
+export const watchLaterMoviesSlice = createSlice({
   name: "movies",
-  initialState:[],
+  initialState: [],
   reducers: {},
   extraReducers: {
     [getMovie.fulfilled]: (state, action) => {
