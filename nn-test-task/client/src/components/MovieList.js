@@ -38,22 +38,31 @@ const MovieList = () => {
   return (
     <>
       <SearchBox/>
-      {movies.map((movie) => (
-        <div className='image-container d-flex justify-content-start m-3'>
-          <Link to={{pathname: "/detail", propsSearch: movie.imdbID}}>
-            <img src={movie.Poster} alt='movie'/>
-            <div>{movie.Title}</div>
-          </Link>
-          <div>{movie.Year}</div>
-          <div>{movie.Type}</div>
-          <button
-            onClick={() => handleWatchLaterClick(movie)}
-            className='overlay d-flex align-items-center justify-content-center'
-          >
-            Watch Later
-          </button>
-        </div>
-      ))}
+      <div className='row' style={{color: "black"}}>
+        {movies.map((movie) => (
+          <div className='image-container d-flex justify-content-start m-3'>
+            <div className="card" style={{width: 18 + 'rem'}}>
+              <Link to={{pathname: "/detail", propsSearch: movie.imdbID}}>
+                <img className="card-img-top" src={movie.Poster} alt={movie.Title}/>
+                <div className="card-body">
+                  <h5 className="card-title">{movie.Title}</h5>
+                </div>
+              </Link>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">{movie.Year}</li>
+                <li className="list-group-item">{movie.Type}</li>
+              </ul>
+              <div className="card-body">
+                <button
+                  onClick={() => handleWatchLaterClick(movie)}
+                >
+                  Watch Later
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

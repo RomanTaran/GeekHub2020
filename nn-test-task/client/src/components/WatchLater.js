@@ -16,12 +16,14 @@ const WatchLater = () => {
   return (
     <div className='row'>
       {watchLater.map((item) => (
-        <div className='image-container d-flex justify-content-start m-3'>
-          <Link to={{pathname: "/detail", propsSearch: item.imdbID}}>
-            <img src={item.Poster} alt='movie'/>
-            <div>{item.Title}</div>
-          </Link>
-          <button onClick={() => removeWatchLater(item._id)}/>
+        <div>
+          <div className='image-container d-flex justify-content-start m-3'>
+            <Link to={{pathname: "/detail", propsSearch: item.imdbID}}>
+              <img src={item.Poster} alt='movie'/>
+              <div>{item.Title}</div>
+            </Link>
+          </div>
+          <button type="button" className="btn btn-danger" onClick={() => removeWatchLater(item._id)}>Remove from Watch Later</button>
         </div>
       ))}
     </div>

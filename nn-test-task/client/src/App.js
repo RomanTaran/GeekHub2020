@@ -8,6 +8,7 @@ import WatchLater from "./components/WatchLater";
 import MovieList from "./components/MovieList";
 import MovieDetails from "./components/MovieDetails";
 import NotFoundPage from "./components/NotFoundPage";
+import Footer from "./components/Footer";
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/detail" component={MovieDetails}/>
         <Route component={NotFoundPage}/>
       </Switch>
+      <Footer/>
     </BrowserRouter>
   );
 };
