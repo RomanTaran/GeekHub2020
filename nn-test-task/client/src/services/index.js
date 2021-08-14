@@ -1,4 +1,12 @@
-export const getMovieRequest = async (searchValue) => {
+export const getMovieRequest = async (searchValue, page) => {
+  const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8&page=${page}`;
+
+  const response = await fetch(url);
+  const responseJson = await response.json();
+  return responseJson;
+};
+
+export const getRequest = async (searchValue) => {
   const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`;
 
   const response = await fetch(url);
@@ -6,11 +14,12 @@ export const getMovieRequest = async (searchValue) => {
   return responseJson;
 };
 
-export const getMovie = async (searchValue) => {
+
+
+export const getMovieDet = async (searchValue) => {
   const url = `http://www.omdbapi.com/?i=${searchValue}&apikey=263d22d8`;
 
   const response = await fetch(url);
   const responseJson = await response.json();
-  const moviesList = Object.entries(responseJson).filter(item => item[0] !== 'Ratings');
-  return moviesList;
+  return responseJson;
 };

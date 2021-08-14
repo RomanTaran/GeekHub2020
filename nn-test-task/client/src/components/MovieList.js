@@ -5,26 +5,56 @@ import {addMovie} from "../store/watchlatermoviesSlice";
 import {Link} from "react-router-dom";
 import SearchBox from "./SearchBox";
 import NotFoundPage from "./NotFoundPage";
-import {getMovieRequest} from "../services";
+import {getMovieRequest, getRequest} from "../services";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import CircleLoader from "react-spinners/CircleLoader";
+import {css} from "@emotion/react";
+import ReactPaginate from 'react-paginate';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: #ffffff;
+`;
 
 const MovieList = () => {
   const dispatch = useDispatch();
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [totalResults, setTotalResults] = useState(0);
+  const [pageCount,setPageCount]=useState(1);
   const search = useSelector(state => state.search);
 
   useEffect(() => {
-    getMovieRequest(search).then((responseJson) => {
-      if (responseJson.Search) setMovies(responseJson.Search)
-    });
-  }, [search]);
+      getRequest(search).then((result) => {
+        if (result) setTotalResults(result.totalResults);
+      })
+      getMovieRequest(search,pageCount).then((responseJson) => {
+        if (responseJson.Search) {
+          setMovies(responseJson.Search);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      })
+    }, [search,pageCount])
 
   const handleWatchLaterClick = async (movie) => {
     const url = `http://www.omdbapi.com/?i=${movie.imdbID}&apikey=263d22d8`;
     const response = await fetch(url);
     const responseJson = await response.json();
     dispatch(addMovie(responseJson));
+    toast("You successfully add a new movie to WatchLater List!!!!");
   }
 
+  const handlePageClick = (event) => {
+    let page = event.selected+1;
+    setPageCount(page);
+  }
+
+
+  if (loading) return <CircleLoader loading={loading} css={override} color={"#123abc"} size={150}/>
 
   if (!movies.length) {
     return (
@@ -38,28 +68,29 @@ const MovieList = () => {
   return (
     <>
       <SearchBox/>
-      <div className='row' style={{color: "black"}}>
-        {movies.map((movie) => (
-          <div className='image-container d-flex justify-content-start m-3'>
-            <div className="card" style={{width: 18 + 'rem'}}>
-              <Link to={{pathname: "/detail", propsSearch: movie.imdbID}}>
-                <img className="card-img-top" src={movie.Poster} alt={movie.Title}/>
-                <div className="card-body">
-                  <h5 className="card-title">{movie.Title}</h5>
-                </div>
-              </Link>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">{movie.Year}</li>
-                <li className="list-group-item">{movie.Type}</li>
-              </ul>
-              <div className="card-body">
-                <button
-                  onClick={() => handleWatchLaterClick(movie)}
-                >
-                  Watch Later
-                </button>
-              </div>
-            </div>
+      <div style={{textAlign: "center"}}>TOTAL SEARCH RESULTS: {totalResults}</div>
+      <ReactPaginate
+        previousLabel={'previous'}
+        nextLabel={'next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={totalResults/10}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
+      <div className='movies'>
+        {movies.map((movie,index) => (
+          <div className='movie-container' key={index}>
+            <Link to={{pathname: "/detail", propsSearch: movie.imdbID}}>
+              <img src={movie.Poster === 'N/A' ? `/images/No_image_poster.png` : movie.Poster} alt={movie.Title}/>
+              <h5>{movie.Title}</h5>
+            </Link>
+            <h5>{movie.Year}</h5>
+            <h5>{movie.Type}</h5>
+            <button className="btn btn-success" onClick={() => handleWatchLaterClick(movie)}>
+              Watch Later
+            </button>
           </div>
         ))}
       </div>

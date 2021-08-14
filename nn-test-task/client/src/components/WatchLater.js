@@ -9,21 +9,25 @@ const WatchLater = () => {
 
   useEffect(() => {
     dispatch(getMovie());
-  }, []);
+  });
 
   const removeWatchLater = (_id) => dispatch(deleteMovie(_id));
 
   return (
-    <div className='row'>
+    <div className='movies'>
       {watchLater.map((item) => (
-        <div>
-          <div className='image-container d-flex justify-content-start m-3'>
-            <Link to={{pathname: "/detail", propsSearch: item.imdbID}}>
-              <img src={item.Poster} alt='movie'/>
-              <div>{item.Title}</div>
-            </Link>
-          </div>
-          <button type="button" className="btn btn-danger" onClick={() => removeWatchLater(item._id)}>Remove from Watch Later</button>
+        <div className='movie-container' key={item.imdbID}>
+          <Link to={{pathname: "/detail", propsSearch: item.imdbID}}>
+            <img src={item.Poster === 'N/A' ? `/images/No_image_poster.png` : item.Poster} alt='movie'/>
+            <div>{item.Title}</div>
+          </Link>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => removeWatchLater(item._id)}
+          >
+            Remove from Watch Later
+          </button>
         </div>
       ))}
     </div>

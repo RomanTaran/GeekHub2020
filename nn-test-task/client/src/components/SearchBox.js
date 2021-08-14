@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
+import {Form, FormControl} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setSearch} from "../store/searchSlice";
@@ -41,6 +41,7 @@ const SearchBox = () => {
       </Link>
       <input
         className="btn btn-danger"
+        style={{marginLeft:5}}
         type="reset"
         onClick={handleReset}
         value="Reset"

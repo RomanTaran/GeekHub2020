@@ -9,11 +9,13 @@ import MovieList from "./components/MovieList";
 import MovieDetails from "./components/MovieDetails";
 import NotFoundPage from "./components/NotFoundPage";
 import Footer from "./components/Footer";
+import {ToastContainer} from "react-toastify";
 
 const App = () => {
 
   return (
     <BrowserRouter>
+      <ToastContainer/>
       <NavBar/>
       <Switch>
         <Route exact path="/" component={Home}/>

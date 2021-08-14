@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getMovie());
-  }, []);
+  });
 
 
   return (
@@ -38,7 +38,7 @@ const Home = () => {
             {watchLater.map((item, index) => (
               <Slide key={item} index={index}>
                 <Link to={{pathname: "/detail", propsSearch: item.imdbID}}>
-                  <img src={item.Poster} alt='movie'/>
+                  <img src={item.Poster==='N/A'?`/images/No_image_poster.png`:item.Poster} alt='movie'/>
                   <div><h4>{item.Title}</h4></div>
                 </Link>
               </Slide>
