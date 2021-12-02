@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  font-family: nyt-cheltenham, georgia, times new roman, times, serif, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  line-height: 1.5;
+}
+h1{
+  text-align: center;
+}
+
+
